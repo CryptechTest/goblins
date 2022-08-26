@@ -546,7 +546,7 @@ mine for me."
 --the following is built from duane-r's goblin tunnel digging:
 local diggable_nodes = {"group:stone", "group:sand", "group:soil", "group:cracky", "group:crumbly"}
 -- This translates yaw into vectors.
-local cardinals = {{x=0,y=0,z=0.75}, {x=-0.75,y=0,z=0}, {x=0,y=0,z=-0.75}, {x=0.75,y=0,z=0}}
+local cardinals = {vector.new(0,0,0.75), vector.new(-0.75,0,0), vector.new(0,0,-0.75), vector.new(0.75,0,0)}
 ----------
 -- Goblins Tunneling.
 ---------

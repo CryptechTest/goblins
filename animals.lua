@@ -134,7 +134,7 @@ goblins.gobdog_template = {
 
     if not self.size then
       local s_mod = variance(1,20)
-      self.size = {x = (variance(90,100) - s_mod), y = (variance(80,110) - s_mod), z = (variance(90,100) - s_mod)}
+      self.size = vector.new((variance(90,100) - s_mod), (variance(80,110) - s_mod), (variance(90,100) - s_mod))
     end
 
     local self_properties = self.object:get_properties()

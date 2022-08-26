@@ -232,7 +232,7 @@ local function mapgen_min_max(pos)
   local pos = vector.round(pos)
   local chunksize = tonumber(type(minetest.settings) ~= "nil" and minetest.settings:get("chunksize") or minetest.setting_get("chunksize")) or 5
   local chunk_offset = math.floor(chunksize / 2) * 16
-  local csize = {x = chunksize * 16, y = chunksize * 16, z = chunksize * 16}
+  local csize = vector.new(chunksize * 16, chunksize * 16, chunksize * 16)
   local chunk = vector.floor(vector.divide(vector.add(pos, chunk_offset), csize))
   local minp = vector.add(vector.multiply(chunk, 80), -chunk_offset)
   local maxp = vector.add(minp, (chunksize * 16) - 1)

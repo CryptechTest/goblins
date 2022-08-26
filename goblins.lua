@@ -811,7 +811,7 @@ goblins.goblin_template = {  --your average goblin,
     --print_s(S(self.secret_name.." has "..dump(self.drops)))
 
     if not self.size then
-      self.size = {x = variance(90,100), y = variance(65,105), z = variance(90,100)}
+      self.size = vector.new(variance(90,100), variance(65,105), variance(90,100))
     end
 
     local self_properties = self.object:get_properties()

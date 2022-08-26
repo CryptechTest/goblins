@@ -176,8 +176,8 @@ function goblins.moss_spread(pos, node)
     minetest.set_node(pos,{name = "goblins:mushroom_goblin"})
   else
     local positions = minetest.find_nodes_in_area_under_air(
-      {x = pos.x - 1, y = pos.y - 2, z = pos.z - 1},
-      {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1},
+      vector.new(pos.x - 1, pos.y - 2, pos.z - 1),
+      vector.new(pos.x + 1, pos.y + 1, pos.z + 1),
       {"default:mossycobble","group:choppy"})
     
     if #positions == 0 or pos.y > -10 then
@@ -200,8 +200,8 @@ function goblins.mushroom_spread(pos, node)
   end
   --print("mushroom spread abm"..minetest.pos_to_string(pos))
   local positions = minetest.find_nodes_in_area_under_air(
-    {x = pos.x - 1, y = pos.y - 2, z = pos.z - 1},
-    {x = pos.x + 1, y = pos.y + 1, z = pos.z + 1},
+    vector.new(pos.x - 1, pos.y - 2, pos.z - 1),
+    vector.new(pos.x + 1, pos.y + 1, pos.z + 1),
     {"default:mossycobble"})
   if #positions == 0 or pos.y > -10 then
     return
