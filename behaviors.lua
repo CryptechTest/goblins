@@ -128,25 +128,27 @@ function goblins.attack(self, target, type)
         else
           if debug_goblins_attack then print_s(S("attackable player, @1 holding @2",pname,wielded)) end
           --lets check if our friends in a fight with the player!
-          for n = 1, #objs do
-            local ent_other = objs[n]:get_luaentity()
-            if defend_groups and ent_other and ent_other.groups and self.groups_defend then
-              for k,v in pairs(self.groups_defend) do
-                if match_only_list(v, ent_other.groups) and
-                    ent_other.state == "attack" and
-                    ent_other.attack:is_player() and
-                    ent_other.attack:get_player_name() == pname then
-                      local xname = ent_other.attack:get_player_name()
-                      if debug_goblins_attack then print_s( S("      ****Defending @1 from @2!",v,xname)) end
-                      minetest.sound_play("goblins_goblin_war_cry", {
-                        pos = pos,
-                        gain = 1.0,
-                        max_hear_distance = self.sounds.distance or 10
-                      })
-                      self:set_animation("run")
-                      self:set_velocity(self.run_velocity)
-                      self.state = "attack"
-                      self.attack = ent_other.attack
+          if objs and #objs >= 1 then 
+            for o = 1, #objs do
+              local ent_other = objs[o]:get_luaentity()
+              if defend_groups and ent_other and ent_other.groups and self.groups_defend then
+                for k,v in pairs(self.groups_defend) do
+                  if match_only_list(v, ent_other.groups) and
+                      ent_other.state == "attack" and
+                      ent_other.attack:is_player() and
+                      ent_other.attack:get_player_name() == pname then
+                        local xname = ent_other.attack:get_player_name()
+                        if debug_goblins_attack then print_s( S("      ****Defending @1 from @2!",v,xname)) end
+                        minetest.sound_play("goblins_goblin_war_cry", {
+                          pos = pos,
+                          gain = 1.0,
+                          max_hear_distance = self.sounds.distance or 10
+                        })
+                        self:set_animation("run")
+                        self:set_velocity(self.run_velocity)
+                        self.state = "attack"
+                        self.attack = ent_other.attack
+                  end
                 end
               end
             end

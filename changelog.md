@@ -1,3 +1,5 @@
+* Update 2022/09/29 fix redefined var
+* Update 2022/08/25 replace old vectors with vector.new()
 * Update 2022/08/21 replace deprecated setyaw()
 * Update 2021/03/21 Various object checks have been added to eliminate crashes.
 * Update 2020/07/12 Goblins dig to safety! Also, random tool selection weight fixes. 
