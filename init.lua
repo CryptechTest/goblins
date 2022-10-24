@@ -1,11 +1,12 @@
 local path = minetest.get_modpath("goblins")
-goblins_db = minetest.get_mod_storage()
-goblins_db:set_string("goblins mod start time", os.date() )
+local settings = minetest.settings
+
 --set namespace for goblins functions
 goblins = {}
-
-goblins.version = "20220929"
-
+goblins.db = minetest.get_mod_storage()
+goblins.db:set_string("goblins mod start time", os.date() )
+goblins.version = "20221024"
+local mobs_req = 20220903
 -- Strips any kind of escape codes (translation, colors) from a string
 -- https://github.com/minetest/minetest/blob/53dd7819277c53954d1298dfffa5287c306db8d0/src/util/string.cpp#L777
 function goblins.strip_escapes(input)
@@ -40,22 +41,78 @@ end
 
 local S = minetest.get_translator("goblins")
 
+function goblins.mr(min, max)
+  local v = 1
+  if max and max < min then
+      print("WARNING: max (" .. max .. ") is less than min (" .. min ..
+                ") for math.random!\n Substituting with value of 1!")
+      return v
+  end
+  if min then
+      if max then
+          v = math.random(min, max)
+      else
+          v = math.random(min)
+      end
+  end
+  return v
+end
+
+function goblins.debug(input, debug_category)
+  debug_category = debug_category or ""
+  local setting_debug = settings:get_bool("goblins_debug", false)
+  local setting_debug_category = settings:get("goblins_debug_category")
+
+  if setting_debug then
+      if setting_debug_category then
+
+          local filters = {}
+          string.gsub(setting_debug_category, "(%a+)",
+                      function(w) table.insert(filters, w) end)
+
+          for i, v in ipairs(filters) do
+              if string.find(debug_category, v) then
+                  print_s(debug_category .. " " .. input)
+              end
+          end
+      else
+          print_s(debug_category .. " " .. input)
+      end
+  end
+end
+
 local goblins_version = goblins.version
 -- create the table if it does not exist!
-local goblins_db_fields = goblins_db:to_table()["fields"]
-local function goblins_db_write(key, table)
+
+goblins.db_fields = goblins.db:to_table()["fields"]
+
+function goblins.db_deser(table)
+  local data = minetest.deserialize(goblins.db_fields[table])
+  return data
+end
+
+function goblins.db_read(table)
+  local data = minetest.deserialize(goblins.db:to_table()["fields"][table])
+  return data
+end
+
+function goblins.db_write(key, table)
   local data = minetest.serialize(table)
-  goblins_db:set_string(key, data)
+  goblins.db:set_string(key, data)
   return key, data
 end
-if not goblins_db_fields["territories"] then
+
+if not goblins.db_fields["territories"] then
   print("-------------\nWe must Initialize!\n-------------")
-  goblins_db_write("territories", {test = {version = goblins_version, encode = minetest.encode_base64(os.date()), created = os.date() }})
+  goblins.db_write("territories", {test = {version = goblins_version, encode = minetest.encode_base64(os.date()), created = os.date() }})
 end
-if not goblins_db_fields["relations"] then
+
+if not goblins.db_fields["relations"] then
   print("-------------\nWe must Initialize!\n-------------")
-  goblins_db_write("relations", {test = {version = goblins_version, encode = minetest.encode_base64(os.date()), created = os.date() }})
+  goblins.db_write("relations", {test = {version = goblins_version, encode = minetest.encode_base64(os.date()), created = os.date() }})
 end
+
+
 --compatability with minimal game
 if not default.LIGHT_MAX then
   default.LIGHT_MAX = 14
@@ -66,8 +123,8 @@ minetest.log("action", "[MOD] goblins " ..goblins.version.. " is lowdings....")
 print_s(S("Please report issues at https://github.com/FreeLikeGNU/goblins/issues "))
 
 if mobs.version then
-  if tonumber(mobs.version) >= tonumber(20200516) then
-    print_s(S("Mobs Redo 20200516 or greater found!"))
+  if tonumber(mobs.version) >= tonumber(mobs_req) then
+    print_s(S("Mobs Redo @1 or greater found!",mobs_req))
   else
     print_s(S("You should find a more recent version of Mobs Redo!"))
     print_s(S("https://notabug.org/TenPlus1/mobs_redo"))
@@ -77,6 +134,7 @@ else
   print_s(S("https://notabug.org/TenPlus1/mobs_redo"))
 end
 
+dofile(path .. "/content.lua")
 dofile(path .. "/utilities.lua")
 dofile(path .. "/traps.lua")
 dofile(path .. "/nodes.lua")

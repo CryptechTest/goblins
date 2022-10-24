@@ -325,3 +325,6 @@ minetest.register_node("goblins:dirt_with_stuff", {
     footstep = {name = "default_grass_footstep", gain = 0.25},
   }),
 })
+
+minetest.register_alias("goblins:chest_locked", "default:chest_locked")
+

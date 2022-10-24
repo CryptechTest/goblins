@@ -1,3 +1,4 @@
+local S = minetest.get_translator("goblins")
 local function variance(min,max)
   local target = math.random(min,max) / 100
   --print(target)
@@ -15,8 +16,8 @@ goblins.gobdog_types = {
     attack_players = true,
   },
   gobdog_aggro = {
-    description ="Dire Gobdog",
-    lore = "Dire Gobdogs are sensitive to light and are very territorial",
+    description = S("Dire Gobdog"),
+    lore = S("Dire Gobdogs are sensitive to light and are very territorial"),
     type = "monster",
     group_attack = true,
     owner_loyal = true,
@@ -31,8 +32,8 @@ goblins.gobdog_types = {
 -- Gobdog Template
 ------------
 goblins.gobdog_template = {
-  description ="Gobdog",
-  lore = "Gobdogs are not canids but goblins that have mutated somehow, fortunately they do not share the hunger and size of the mythical werewolf.",
+  description = S("Gobdog"),
+  lore =  S("Gobdogs are not canids but goblins that have mutated somehow, fortunately they do not share the hunger and size of the mythical werewolf."),
   type = "npc",
   attack_type = "dogfight",
   group_attack = true,
@@ -78,12 +79,8 @@ goblins.gobdog_template = {
     death = "goblins_goblin_dog_death_cave",
     replace = "goblins_goblin_dog_replace_cave",gain = 0.8,
   },
-  follow = {
-    "goblins:goblins_goblin_bone","goblins:goblins_goblin_bone_meaty","group:meat"
-  },
-  drops = {
-    {name = "goblins:goblins_goblin_bone", chance = 1, min = 1, max = 3},
-  },
+  follow = goblins.db_read("gobdog_follow"),
+  drops = goblins.db_read("gobdog_drops"),
   animation = {
     speed_normal = 60,
     stand_start = 0,

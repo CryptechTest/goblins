@@ -1,3 +1,4 @@
+* Update 2022/10/26 Goblin chests added, goblin related items moved to mod_storage!
 * Update 2022/09/29 fix redefined var
 * Update 2022/08/25 replace old vectors with vector.new()
 * Update 2022/08/21 replace deprecated setyaw()

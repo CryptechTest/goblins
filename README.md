@@ -6,7 +6,7 @@
 * Minetest Content DB: https://content.minetest.net/packages/FreeLikeGNU/goblins/
 
 This mod adds several Goblins (and Goblin Dogs) to Minetest that should spawn near ore deposits or lairs underground.
-
+* Some Goblins have loot filled chests nearby! Can you befriend or defeat these goblins?
 * Goblins dig caves, destroy torches, create lairs, set traps, cultivate mushrooms and some are aggressive.
 * Gobdogs will roam caves, bury bones and other items in soft terrain, eat meats. Some Gobdogs are aggressive!
 * Basic trading with Goblins - the more you trade with a goblin, the more likely you will get things in return! 
@@ -23,6 +23,7 @@ in your own mobs definition!
 * There are many settings now accessible from the minetest menu -> "settings" tab -> "all settings" -> "mods" -> "goblins" list!
 these can also be defined in the settingtypes.txt
 * Goblin and Gobdog spawning is now configured from goblins_spawning.lua (at least until there is a way to easily change these with the setting menu :P )
+* Goblin related follow and drop items now moved to mod_storage
 * A basic and optional (enabled in minetest setting menu) HUD is available
 * tested with Minetest 5.2 and 5.30(dev)
 
