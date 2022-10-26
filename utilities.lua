@@ -157,14 +157,11 @@ function goblins.secret_territory(self, player_name, tell)
         return self.secret_territory
     end
     if debug then
-    goblins.debug(function()
-        for k, v in pairs(self.secret_territory_told) do
+       for k, v in pairs(self.secret_territory_told) do
             print_s(
                 self.secret_name .. " revealed secret territories to: " .. k ..
                     " " .. v)
         end
-    end,"goblins.secret_territory"
-    )
     end
 end
 
@@ -186,13 +183,13 @@ function goblins.secret_name(self, player_name, tell)
         return self.secret_name
     end
     if debug then
-        goblins.debug(function()
+       
             for k, v in pairs(self.secret_name_told) do
                 print_s(
                     self.secret_name .. " revealed secret name to: " .. k .. " " ..
                         v)
             end
-        end,"goblins.secret_name")
+       
     end
 end
 
@@ -288,15 +285,15 @@ function goblins.territory(pos, opt_data)
     local this_territory = {}
     local volume_cat_pos = cat_pos(minp_maxp)
     -- print_s(dump(volume_cat_pos).." cat paws!")
-    if debug then goblins.debug(function()
+    if debug then 
         print_s("\n----Known territories")
         for k, v in pairs(existing_territories) do
             print_s(dump(k) .. " is known as " ..
                         dump(existing_territories[k].name))
         end
         print_s("----End Known territories\n")
-    end, "territories")
     end
+    
     local territories_table = table.copy(existing_territories)
     -- print_s(dump(territories_table).."copied territories")
     -- print_s("\nTERRITORY TEST TABLE READ:\n" ..dump(goblins.db_read("territories")).."\n")
@@ -460,7 +457,7 @@ function goblins.relations_territory(self, player_name, rel_name)
     end
     -- be sure that relations have been started with player before using this!
 
-    goblins.debug(S("Individual mob trade relations: "))
+    goblins.debug("Individual mob trade relations: ","trade relations")
 
     for m_name, prop in pairs(relations) do
         if self.secret_territory.name == relations[m_name][m_name] and

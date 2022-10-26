@@ -5,7 +5,7 @@ local settings = minetest.settings
 goblins = {}
 goblins.db = minetest.get_mod_storage()
 goblins.db:set_string("goblins mod start time", os.date() )
-goblins.version = "20221024"
+goblins.version = "20221025"
 local mobs_req = 20220903
 -- Strips any kind of escape codes (translation, colors) from a string
 -- https://github.com/minetest/minetest/blob/53dd7819277c53954d1298dfffa5287c306db8d0/src/util/string.cpp#L777
