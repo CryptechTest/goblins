@@ -11,7 +11,7 @@ local function variance(min, max)
     return target
 end
 
--- you can use the goblins.spawning.lua or goblins_custom.lua to change spawning behavior
+-- goblin spawning behavior moved to mod_storage database make any changes you wish there!
 
 -- this table defines the goblins with how they differ from the goblin template.
 goblins.gob_types = {
@@ -85,7 +85,8 @@ goblins.gob_types = {
                 )
             end
         end,
-        spawning = goblins.spawning.digger,
+        -- spawning = goblins.db_read("digger_spawning"),
+        spawning = goblins.db_read("digger_spawning"),
         additional_properties = {
             goblin_tools = {
                 "goblins:pick_mossycobble", "default:pick_stone",
@@ -164,7 +165,7 @@ goblins.gob_types = {
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
         end,
-        spawning = goblins.spawning.cobble
+        spawning = goblins.db_read("cobble_spawning")
     },
     snuffer = {
         description = S("Snuffer Goblin"),
@@ -204,7 +205,7 @@ goblins.gob_types = {
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
         end,
-        spawning = goblins.spawning.snuffer
+        spawning = goblins.db_read("snuffer_spawning")
     },
     fungiler = {
         description = S("Goblin Fungiler"),
@@ -276,7 +277,7 @@ goblins.gob_types = {
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
         end,
-        spawning = goblins.spawning.fungiler
+        spawning = goblins.db_read("fungiler_spawning")
     },
     coal = {
         description = S("Coalbreath Goblin"),
@@ -318,7 +319,7 @@ goblins.gob_types = {
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
         end,
-        spawning = goblins.spawning.coal
+        spawning = goblins.db_read("coal_spawning")
     },
     copper = {
         description = S("Coppertooth Goblin"),
@@ -363,7 +364,7 @@ goblins.gob_types = {
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
         end,
-        spawning = goblins.spawning.copper
+        spawning = goblins.db_read("copper_spawning")
     },
     iron = {
         description = S("Ironpick Goblin"),
@@ -408,7 +409,7 @@ goblins.gob_types = {
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
         end,
-        spawning = goblins.spawning.iron
+        spawning = goblins.db_read("iron_spawning")
     },
     gold = {
         description = S("Goldshiv Goblin"),
@@ -451,7 +452,7 @@ goblins.gob_types = {
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
         end,
-        spawning = goblins.spawning.gold
+        spawning = goblins.db_read("gold_spawning")
     },
     diamond = {
         description = S("Diamondagger Goblin"),
@@ -496,7 +497,7 @@ goblins.gob_types = {
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
         end,
-        spawning = goblins.spawning.diamond
+        spawning = goblins.db_read("diamond_spawning")
     },
     hoarder = {
         description = S("Goblin Hoarder"),
@@ -545,7 +546,7 @@ goblins.gob_types = {
             local pos = self.object:get_pos()
             goblins.place_chest(self, pos)
         end,
-        spawning = goblins.spawning.hoarder
+        spawning = goblins.db_read("hoarder_spawning")
     }
 }
 
@@ -701,13 +702,14 @@ goblins.goblin_template = { -- your average goblin,
     end,
     on_die = function(self, pos)
         local death_by_player = self.cause_of_death and
-                                        self.cause_of_death.puncher and
-                                        self.cause_of_death.puncher:is_player()
+                                    self.cause_of_death.puncher and
+                                    self.cause_of_death.puncher:is_player()
         if death_by_player then
             local pname = self.cause_of_death.puncher:get_player_name()
             if self.secret_name then
-                minetest.chat_send_player(pname, S("@1 has been slain by @2!",self.secret_name,pname))
-                print(self.secret_name .. " has been slain by " .. pname.."!")
+                minetest.chat_send_player(pname, S("@1 has been slain by @2!",
+                                                   self.secret_name, pname))
+                print(self.secret_name .. " has been slain by " .. pname .. "!")
                 if self.chest_pos then
                     local meta = minetest.get_meta(self.chest_pos)
                     if self.chest_owner == self.secret_name then
@@ -728,12 +730,13 @@ goblins.goblin_template = { -- your average goblin,
             goblins.relations(self, pname, {trade = 0})
             relations = goblins.relations(self, pname)
         end
-        goblins.special_gifts(self)
+
         -- print(self.secret_name.." relations on click:\n"..dump(self.relations).."\n")
         if self.relations[pname].trade >= 40 and self.chest_owner and
             self.chest_owner == self.secret_name then
             goblins.award_goblins_chest(self, clicker)
         end
+
         if self.relations[pname].trade >= 30 and
             not self.secret_territory_told[pname] then
             goblins.secret_territory(self, pname, "tell")
@@ -768,17 +771,7 @@ goblins.goblin_template = { -- your average goblin,
         nil -- debug messages
         )
     end,
-    spawning = {
-        nodes = {"default:mossycobble"},
-        min_light = 0,
-        max_light = 10,
-        chance = 500,
-        active_object_count = 4,
-        min_height = -31000,
-        max_height = -20,
-        day_toggle = nil,
-        a = nil
-    }
+    spawning = goblins.db_read("template_spawning")
 
 }
 

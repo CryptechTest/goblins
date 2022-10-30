@@ -1,7 +1,7 @@
-
 local settings = minetest.settings
-local debug = settings:get_bool("goblins_debug", false)
-local announce_spawning = settings:get_bool("goblins_announce_spawning") ~= false
+local debug = settings:get_bool("goblins_debug") or false
+local announce_spawning = settings:get_bool("goblins_announce_spawning") or
+                              false
 local S = minetest.get_translator("goblins")
 
 local function print_s(input) print(goblins.strip_escapes(input)) end
@@ -157,7 +157,7 @@ function goblins.secret_territory(self, player_name, tell)
         return self.secret_territory
     end
     if debug then
-       for k, v in pairs(self.secret_territory_told) do
+        for k, v in pairs(self.secret_territory_told) do
             print_s(
                 self.secret_name .. " revealed secret territories to: " .. k ..
                     " " .. v)
@@ -183,13 +183,13 @@ function goblins.secret_name(self, player_name, tell)
         return self.secret_name
     end
     if debug then
-       
-            for k, v in pairs(self.secret_name_told) do
-                print_s(
-                    self.secret_name .. " revealed secret name to: " .. k .. " " ..
-                        v)
-            end
-       
+
+        for k, v in pairs(self.secret_name_told) do
+            print_s(
+                self.secret_name .. " revealed secret name to: " .. k .. " " ..
+                    v)
+        end
+
     end
 end
 
@@ -256,9 +256,6 @@ end
 
 -- refer to https://rubenwardy.com/minetest_modding_book/en/map/storage.html
 
-
-
-
 function goblins.territory_test(pos, territories)
 
     local db_test = minetest.serialize({fieldtest = "initialized"})
@@ -285,7 +282,7 @@ function goblins.territory(pos, opt_data)
     local this_territory = {}
     local volume_cat_pos = cat_pos(minp_maxp)
     -- print_s(dump(volume_cat_pos).." cat paws!")
-    if debug then 
+    if debug then
         print_s("\n----Known territories")
         for k, v in pairs(existing_territories) do
             print_s(dump(k) .. " is known as " ..
@@ -293,7 +290,7 @@ function goblins.territory(pos, opt_data)
         end
         print_s("----End Known territories\n")
     end
-    
+
     local territories_table = table.copy(existing_territories)
     -- print_s(dump(territories_table).."copied territories")
     -- print_s("\nTERRITORY TEST TABLE READ:\n" ..dump(goblins.db_read("territories")).."\n")
@@ -309,7 +306,8 @@ function goblins.territory(pos, opt_data)
                 goblins.db:set_string("territories", territories_table_ser)
 
                 goblins.debug(k .. " added to " ..
-                                territories_table[volume_cat_pos]["name"],"territories")
+                                  territories_table[volume_cat_pos]["name"],
+                              "territories")
 
                 -- end
             end
@@ -317,7 +315,7 @@ function goblins.territory(pos, opt_data)
         end
 
         goblins.debug(dump(t_name) .. " at " .. dump(t_vol) ..
-                        " is already known!","territories")
+                          " is already known!", "territories")
 
         -- print_s(dump(territories_table[volume_cat_pos]).. "\n ---end details \n")
         return t_name, t_vol
@@ -334,8 +332,8 @@ function goblins.territory(pos, opt_data)
         }
 
         goblins.debug("The territory of " ..
-                        dump(this_territory[volume_cat_pos]["name"]) .. " at " ..
-                        volume_cat_pos .. " will be recorded.","territories")
+                          dump(this_territory[volume_cat_pos]["name"]) .. " at " ..
+                          volume_cat_pos .. " will be recorded.", "territories")
 
         territories_table[volume_cat_pos] = this_territory[volume_cat_pos]
         -- print_s(dump(territories_table).. " is the new table \n")
@@ -350,7 +348,8 @@ function goblins.territory(pos, opt_data)
                 goblins.db:set_string("territories", territories_table_ser)
 
                 goblins.debug(k .. " added to " ..
-                                territories_table[volume_cat_pos]["name"],"territories")
+                                  territories_table[volume_cat_pos]["name"],
+                              "territories")
 
                 -- end
             end
@@ -381,7 +380,7 @@ function goblins.relations(self, target_name, target_table)
         return
     end
     -- let's get all the facts, this query may have to get more specific if its too big...
-     existing_relations = goblins.db_read("relations")
+    existing_relations = goblins.db_read("relations")
     -- do we want to know something in particular?
 
     if self then
@@ -389,20 +388,21 @@ function goblins.relations(self, target_name, target_table)
         -- have we started keeping track of who we know?
         if not self["relations"] then
             self.relations = {ix = os.time()}
-            
-               goblins.debug("self table: " .. dump(self),"relations")
-            
+
+            goblins.debug("self table: " .. dump(self), "relations")
+
             -- create an entry for ourselves with our territory as the value
             if self.secret_name and self.secret_territory then
                 self.relations[name] = self.secret_territory.name
                 existing_relations[name] = self.relations
-                
+
                 goblins.debug("self table updated: " .. dump(self.relations) ..
-                                "\n","relations")
-                          
+                                  "\n", "relations")
+
                 goblins.debug("adding mob to relations table: " ..
-                                dump(existing_relations[self]) .. "\n","relations")
-                
+                                  dump(existing_relations[self]) .. "\n",
+                              "relations")
+
                 goblins.db_write("relations", existing_relations)
             end
         end
@@ -430,14 +430,17 @@ function goblins.relations(self, target_name, target_table)
             -- print_s(dump(existing_relations))
             goblins.db_write("relations", existing_relations)
 
-            goblins.debug("updated self table: " .. dump(self.relations) .. "\n","relations")
+            goblins.debug(
+                "updated self table: " .. dump(self.relations) .. "\n",
+                "relations")
 
             return existing_relations[target_name]
         end
     end
     -- we dont have a target just dump everything known about everone
 
-    goblins.debug("all relations" .. dump(existing_relations) .. "\n","relations")
+    goblins.debug("all relations" .. dump(existing_relations) .. "\n",
+                  "relations")
 
     return existing_relations
 end
@@ -457,7 +460,7 @@ function goblins.relations_territory(self, player_name, rel_name)
     end
     -- be sure that relations have been started with player before using this!
 
-    goblins.debug("Individual mob trade relations: ","trade relations")
+    goblins.debug("Individual mob trade relations: ", "trade relations")
 
     for m_name, prop in pairs(relations) do
         if self.secret_territory.name == relations[m_name][m_name] and
@@ -465,14 +468,18 @@ function goblins.relations_territory(self, player_name, rel_name)
             -- add up the trade relations between the player and all goblins in this goblins territory
             t_relation = t_relation + relations[m_name][pname][rel_name]
 
-            goblins.debug(S("@1 = @2", m_name, relations[m_name][pname][rel_name]),"trade relations")
-            
+            goblins.debug(S("@1 = @2", m_name,
+                            relations[m_name][pname][rel_name]),
+                          "trade relations")
+
         end
     end
 
-    goblins.debug("this mob's relation are " .. dump(relations[self.secret_name]),"trade relations")
+    goblins.debug("this mob's relation are " ..
+                      dump(relations[self.secret_name]), "trade relations")
     goblins.debug(S("@1 territory @2 relation score = @3",
-                  self.secret_territory.name, rel_name, t_relation),"trade relations")
+                    self.secret_territory.name, rel_name, t_relation),
+                  "trade relations")
 
     return t_relation
 end

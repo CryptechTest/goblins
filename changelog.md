@@ -1,3 +1,4 @@
+* Update 2022/10/29 fix settings and other vars, move spawning to mod_storage
 * Update 2022/10/25 hotfix  debug crashing
 * Update 2022/10/24 Goblin chests added, goblin related items moved to mod_storage!
 * Update 2022/09/29 fix redefined var

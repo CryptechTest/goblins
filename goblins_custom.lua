@@ -80,7 +80,7 @@ local S = minetest.get_translator("goblins")
     after_activate = function (self)
       goblins.tool_attach(self,self.goblin_tools)
     end,
-    spawning = goblins.spawning.cobble
+    spawning = goblins.db_read("template_spawning")
 --]]
 --[[
 goblins.gob_types.foo = {

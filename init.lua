@@ -5,7 +5,8 @@ local settings = minetest.settings
 goblins = {}
 goblins.db = minetest.get_mod_storage()
 goblins.db:set_string("goblins mod start time", os.date() )
-goblins.version = "20221025"
+
+goblins.version = 20221029
 local mobs_req = 20220903
 -- Strips any kind of escape codes (translation, colors) from a string
 -- https://github.com/minetest/minetest/blob/53dd7819277c53954d1298dfffa5287c306db8d0/src/util/string.cpp#L777
@@ -157,12 +158,13 @@ local goblin_template = goblins.goblin_template
 local gobdog_template = goblins.gobdog_template
 local gob_name_parts = goblins.gob_name_parts
 local gob_words = goblins.words_desc
+local rules = {}
 
 goblins.generate(gob_types,goblin_template)
 goblins.generate(gobdog_types,gobdog_template)
 
-local function ggn(gob_name_parts,rules)
-  return goblins.generate_name(gob_name_parts,rules)
+local function ggn(...)
+   return goblins.generate_name(...)
 end
 
 print_s(S("This diversion is dedicated to the memory of @1 the @2, @3 the @4, and @5 the @6... May their hordes be mine!",

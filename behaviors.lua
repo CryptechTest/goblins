@@ -1,5 +1,5 @@
 local settings = minetest.settings
-local debug = settings:get_bool("goblins_debug", false)
+local debug = settings:get_bool("goblins_debug") or false
 
 -- @trade_shrewdness increases trade difficulty
 local goblins_trade_shrewdness = tonumber(
@@ -8,15 +8,15 @@ local goblins_trade_shrewdness = tonumber(
 
 -- @aggro_on_wield will goblins attack when a weapon is wielded?
 local goblins_aggro_on_wield = minetest.settings:get_bool(
-                                   "goblins_aggro_on_wield") ~= false
+                                   "goblins_aggro_on_wield") or false
 -- @goblins_defend_groups will goblins and gobdogs defend other mobs?
 local goblins_defend_groups =
-    minetest.settings:get_bool("goblins_defend_groups") ~= false
+    minetest.settings:get_bool("goblins_defend_groups") or false
 
-local mobs_griefing = minetest.settings:get_bool("mobs_griefing") ~= false
+local mobs_griefing = minetest.settings:get_bool("mobs_griefing") or false
 local goblins_node_protect_strict = minetest.settings:get_bool(
-                                        "goblins_node_protect_strict") ~= false
-local peaceful_only = minetest.settings:get_bool("only_peaceful_mobs")
+                                        "goblins_node_protect_strict") or false
+local peaceful_only = minetest.settings:get_bool("only_peaceful_mobs") or false
 
 local S = minetest.get_translator("goblins")
 
@@ -185,31 +185,32 @@ function goblins.attack(self, target, type)
 end
 
 function goblins.gift_tally(self, pname, item_name)
-  if not self or not pname or not item_name then
-      return print("Error in gift_tally")
-  end
-  -- print("begin gift_talley: "..dump(self).."  "..pname.." "..item_name)
+    if not self or not pname or not item_name then
+        return print("Error in gift_tally")
+    end
+    -- print("begin gift_talley: "..dump(self).."  "..pname.." "..item_name)
 
-  if not self.relations[pname] then
-      goblins.relations(self, pname, {trade = 0})
-  end
+    if not self.relations[pname] then
+        goblins.relations(self, pname, {trade = 0})
+    end
 
-  if not self.relations[pname].gifts_given then
-      goblins.relations(self, pname, {gifts_given = {}})
-  end
+    if not self.relations[pname].gifts_given then
+        goblins.relations(self, pname, {gifts_given = {}})
+    end
 
-  goblins.debug(dump(goblins.relations(self, pname)))
-  local srp_gifts_given = self.relations[pname].gifts_given
+    goblins.debug(dump(goblins.relations(self, pname)))
+    local srp_gifts_given = self.relations[pname].gifts_given
 
-  if not srp_gifts_given[item_name] then
-      srp_gifts_given[item_name] = {count = 1}
-  elseif srp_gifts_given[item_name] then
-      srp_gifts_given[item_name].count = srp_gifts_given[item_name].count + 1
-  end
+    if not srp_gifts_given[item_name] then
+        srp_gifts_given[item_name] = {count = 1}
+    elseif srp_gifts_given[item_name] then
+        srp_gifts_given[item_name].count = srp_gifts_given[item_name].count + 1
+    end
 
-  -- print("gifts given: " .. dump(srp_gifts_given))
-  goblins.relations(self, pname, {gifts_given = srp_gifts_given})
-  -- print("end gift_talley: "..dump(self.relations))
+    -- print("gifts given: " .. dump(srp_gifts_given))
+    goblins.relations(self, pname, {gifts_given = srp_gifts_given})
+    -- print("end gift_talley: "..dump(self.relations))
+    return srp_gifts_given[item_name].count
 end
 
 ---grab the score for a territory
@@ -232,7 +233,7 @@ function goblins.get_scores(self, player_name, rel_names)
     meta:set_string("territory_current", self.secret_territory.name)
     if self.secret_name_told and self.secret_name_told[player_name] then
         meta:set_string("goblin_current", self.secret_name)
-       -- print("***    player meta = " .. meta:get_string("goblin_current"))
+        -- print("***    player meta = " .. meta:get_string("goblin_current"))
     else
         meta:set_string("goblin_current", "unknown goblin")
     end
@@ -269,61 +270,71 @@ local function trade_score(self, player_name)
     return result
 end
 
-
 --- Drops a special personlized item
-function goblins.special_gifts(self, pname, drop_chance, max_drops)
-  if pname then
-      if self.drops then
-          if not drop_chance then drop_chance = 1000 end
-          if not max_drops then max_drops = 1 end
-          local rares = {}
-          for k, v in pairs(self.drops) do
-              -- print_s(dump(v.name).." and "..dump(v.chance))
-              if v.chance >= drop_chance then
-                  table.insert(rares, v.name)
-              end
-          end
-          if #rares > 0 then
-              -- print_s("rares = "..dump(rares))
-              local pos = self.object:get_pos()
-              if pos then
-                  pos.y = pos.y + 0.5
-                  goblins.mixitup(pos)
-                  if #rares > max_drops then
-                      rares = rares[math.random(max_drops, #rares)]
-                      if type(rares) ~= table then
-                          rares = {rares}
-                      end --
-                  end
-                  for k, v in pairs(rares) do
-                      minetest.sound_play("goblins_goblin_cackle", {
-                          pos = pos,
-                          gain = 1.0,
-                          max_hear_distance = self.sounds.distance or 10
-                      })
-                      local item_wear = math.random(5000, 10000)
-                      local stack = ItemStack({name = v, wear = item_wear})
-                      local org_desc =
-                          minetest.registered_items[v].description
-                      local meta = stack:get_meta()
-                      local tool_adj =
-                          goblins.generate_name(goblins.words_desc,
-                                                {"tool_adj"})
-                      -- special thanks here to rubenwardy for showing me how translation works!
-                      meta:set_string("description", S("@1's @2 @3",
-                                                       self.secret_name,
-                                                       tool_adj, org_desc))
-                      local obj = minetest.add_item(pos, stack)
-                      goblins.gift_tally(self, pname, v)
-                      minetest.chat_send_player(pname, S("@1 drops @2",
+function goblins.special_gifts(self, pname, drop_chance, max_drops, override)
+    if pname then
+        if self.drops then
+            if not drop_chance then drop_chance = 1000 end
+            if not max_drops then max_drops = 1 end
+            local rares = {}
+            if not self.relations then self.relations[pname] = {} end
+
+            if not self.relations[pname].gifts_given then
+                self.relations[pname].gifts_given = {}
+            end
+
+            for _, v in pairs(self.drops) do
+
+                -- print_s(dump(v.name).." and "..dump(v.chance))
+                if v.chance >= drop_chance then
+                    if override or not self.relations[pname].gifts_given[v.name] then
+                        table.insert(rares, v.name)
+                    else
+                        -- print(self.secret_name.. " already gave "..pname.." a "..v.name)
+                    end
+                end
+            end
+            if #rares > 0 then
+                -- print_s("rares = "..dump(rares))
+                local pos = self.object:get_pos()
+                if pos then
+                    pos.y = pos.y + 0.5
+                    goblins.mixitup(pos)
+                    if #rares > max_drops then
+                        rares = rares[math.random(max_drops, #rares)]
+                        if type(rares) ~= table then
+                            rares = {rares}
+                        end --
+                    end
+                    for _, v in pairs(rares) do
+                        minetest.sound_play("goblins_goblin_cackle", {
+                            pos = pos,
+                            gain = 1.0,
+                            max_hear_distance = self.sounds.distance or 10
+                        })
+                        local item_wear = math.random(5000, 10000)
+                        local stack = ItemStack({name = v, wear = item_wear})
+                        local org_desc =
+                            minetest.registered_items[v].description
+                        local meta = stack:get_meta()
+                        local tool_adj =
+                            goblins.generate_name(goblins.words_desc,
+                                                  {"tool_adj"})
+                        -- special thanks here to rubenwardy for showing me how translation works!
+                        meta:set_string("description", S("@1's @2 @3",
                                                          self.secret_name,
-                                                         meta:get_string(
-                                                             "description")))
-                  end
-              end
-          end
-      end
-  end
+                                                         tool_adj, org_desc))
+                        local obj = minetest.add_item(pos, stack)
+                        goblins.gift_tally(self, pname, v)
+                        minetest.chat_send_player(pname, S("@1 drops @2",
+                                                           self.secret_name,
+                                                           meta:get_string(
+                                                               "description")))
+                    end
+                end
+            end
+        end
+    end
 end
 
 --- You can give a gift, they *may* give something(s) in return, thats Goblin trading
@@ -895,6 +906,19 @@ function goblins.goblin_dog_behaviors(self)
     end
 end
 
+function goblins.stop_and_face(self, pos)
+    mobs:yaw_to_pos(self, pos)
+    self.state = "stand"
+    self:set_velocity(0)
+    self:set_animation("stand")
+    self.attack = nil
+    self.v_start = false
+    self.timer = -5
+    self.pause_timer = .25
+    self.blinktimer = 0
+    self.path.way = nil
+end
+
 function goblins.award_goblins_chest(self, player)
     if player and self.chest_pos and self.chest_owner == self.secret_name then
         local pname = ""
@@ -906,10 +930,12 @@ function goblins.award_goblins_chest(self, player)
         local sname = meta:get_string("secret_name")
         local info = {self.secret_name, sname, self.chest_pos, pname}
         local pos_string = minetest.pos_to_string(info[3])
-        local reward_text = S(
-                                "You receive permission from @1 to access their magic chest located at @2!",
-                                info[1], pos_string)
+        self.follow = {"default:mese", "default:obsidian"}
+        goblins.stop_and_face(self, self.chest_pos)
+        local reward_text = S("@1 cackles and points to their magic chest (@2)",
+                              info[1], pos_string)
         local reward = {r_text = reward_text, r_item = "default:chest"}
+
         -- meta:set_string("infotext", S("@1's chest of @2", info[1], info[2]))
         meta:set_string("infotext", S("@1's chest", pname))
         self.chest_owner = pname
@@ -930,18 +956,19 @@ function goblins.place_chest(self, pos)
     local area_min = vector.new(vector.subtract(pos, vector.new(4, 2, 4)))
     local area_max = vector.new(vector.add(pos, 4))
     local secret_name = self.secret_name
+    local secret_territory = self.secret_territory.name
     if not self.chest_pos then
-        --print("finding nodes between:" .. dump(area_min) .. " and " ..dump(area_max))
+        -- print("finding nodes between:" .. dump(area_min) .. " and " ..dump(area_max))
         local chest_pos_list = minetest.find_nodes_in_area_under_air(area_min,
                                                                      area_max, {
             "default:mossycobble", "default:cobble"
         })
-        --print(dump(chest_pos_list))
+        -- print(dump(chest_pos_list))
         if chest_pos_list and #chest_pos_list >= 1 then
             self.chest_owner = self.secret_name
             chest_pos = vector.new(chest_pos_list[math.random(#chest_pos_list)])
             chest_pos.y = chest_pos.y + 1
-            --print("chest to be placed at: " .. dump(chest_pos))
+            -- print("chest to be placed at: " .. dump(chest_pos))
             self.chest_pos = chest_pos
             local fdir = minetest.dir_to_facedir(
                              vector.direction(pos, chest_pos))
@@ -959,20 +986,27 @@ function goblins.place_chest(self, pos)
 
             meta:set_string("secret_type", "goblins_chest")
 
-            if secret_name then
+            local function ggn(...) return goblins.generate_name(...) end
+            local gob_words = goblins.words_desc
+
+            if secret_name and secret_territory then
                 meta:set_string("secret_name", secret_name)
                 meta:set_string("owner", secret_name)
-                meta:set_string("infotext", "Sealed chest of " .. secret_name)
+                meta:set_string("infotext",
+                                S("It appears to say: \n @1 the @2 of @3",
+                                  secret_name, ggn(gob_words, {"tool_adj"}),
+                                  secret_territory))
+
             else
                 meta:set_string("owner", mtpts(chest_pos))
                 meta:set_string("secret_name", mtpts(chest_pos))
                 meta:set_string("infotext", "This chest is magically sealed!")
-                --print("Unclaimed chest placed: " .. mtpts(chest_pos),"generate_chest")
+                -- print("Unclaimed chest placed: " .. mtpts(chest_pos),"generate_chest")
                 -- gobdog_spawn_pos = vector.new(chest_pos)
             end
 
             local loot = goblins.db_read("goblin_chest_items")
-            --print(dump(loot), "goblin chest loot")
+            -- print(dump(loot), "goblin chest loot")
             for _, val in ipairs(loot) do
                 if mr(val.chance) == 1 then
                     inv:add_item("main", {

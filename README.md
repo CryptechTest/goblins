@@ -24,6 +24,7 @@ in your own mobs definition!
 these can also be defined in the settingtypes.txt
 * Goblin and Gobdog spawning is now configured from goblins_spawning.lua (at least until there is a way to easily change these with the setting menu :P )
 * Goblin related follow and drop items now moved to mod_storage
+* Goblin spawning parameters moved to mod_storage
 * A basic and optional (enabled in minetest setting menu) HUD is available
 * tested with Minetest 5.2 and 5.30(dev)
 

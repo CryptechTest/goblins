@@ -6,7 +6,7 @@ local function variance(min,max)
  end
 
 local gob_name_parts = goblins.gob_name_parts
-local goblins_spawning = goblins.spawning
+
 goblins.gobdog_types = {
   gobdog = {
     owner_loyal = true,
@@ -25,7 +25,7 @@ goblins.gobdog_types = {
     attack_monsters = false,
     attack_players = true,
 
-    spawning = goblins_spawning.gobdog_aggro
+    spawning = goblins.db_read("gobdog_aggro_spawning")
   },
 }
 -------------
@@ -165,7 +165,7 @@ goblins.gobdog_template = {
     end
   end,
 
-  spawning = goblins_spawning.gobdog
+  spawning = goblins.db_read("gobdog_spawning")
 }
 
 mobs:alias_mob("goblins:goblins_goblin_dog", "goblins:goblin_gobdog")
