@@ -5,6 +5,8 @@
   (github repository is now deprecated to be archived!)
 * Minetest Content DB: https://content.minetest.net/packages/FreeLikeGNU/goblins/
 
+* Compatable with both Minetest Game and MineClone 2!
+    * https://content.minetest.net/packages/Wuzzy/mineclone2/
 This mod adds several Goblins (and Goblin Dogs) to Minetest that should spawn near ore deposits or lairs underground.
 * Some Goblins have loot filled chests nearby! Can you befriend or defeat these goblins?
 * Goblins dig caves, destroy torches, create lairs, set traps, cultivate mushrooms and some are aggressive.
@@ -96,9 +98,10 @@ these can also be defined in the settingtypes.txt
     * goblins_goblin_king.png
     * License: Creative Commons (CC-BY-SA-3.0 SummerFeilds TP
   
-  Thanks to orbea for adding Hunger NG and Bonemeal mod support and bugfixes!
+*  Thanks to orbea for adding Hunger NG and Bonemeal mod support and bugfixes!
     * https://github.com/orbea
-  Thanks to TenPlus1 for keeping the Mobs_Redo going!
-  Thanks to rubenwardy for awesome help and the Minetest ContentDB
-  Thanks to everyone in the Minetest forums and IRC for just being great!
+* Thanks to TenPlus1 for keeping the Mobs_Redo going!
+* Thanks to rubenwardy for awesome help and the Minetest ContentDB
+* Thanks to everyone in the Minetest forums and IRC for just being great!
+* Thanks to kristovish for testing and providing crash reports from their live populated server!
 GET MINETEST: https://www.minetest.net/

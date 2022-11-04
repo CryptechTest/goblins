@@ -61,7 +61,7 @@ goblins.gobdog_template = {
     "group:water", 20,
     "group:sand", 20,
     "group:soil", 20,
-    "default:mossycobble", 10,
+    goblins.comp.default.mossycobble, 10,
     "group:meat" ,2,
     "goblins:goblins_goblin_bone_meaty"},
   collisionbox = {-0.45, -0.01, -0.45, 0.45, 0.85, 0.45},
@@ -167,9 +167,11 @@ goblins.gobdog_template = {
 
   spawning = goblins.db_read("gobdog_spawning")
 }
-
+--[[
 mobs:alias_mob("goblins:goblins_goblin_dog", "goblins:goblin_gobdog")
 mobs:alias_mob("goblins:goblin_goblin_dog", "goblins:goblin_gobdog")
 
 mobs:alias_mob("goblins:goblins_goblin_dog_aggro", "goblins:goblin_gobdog_aggro")
 mobs:alias_mob("goblins:goblin_goblin_dog_aggro", "goblins:goblin_gobdog_aggro")
+]]
+

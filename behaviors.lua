@@ -52,12 +52,27 @@ end
 local function match_only_list(item, list)
     for k, v in pairs(list) do if item == v then return v end end
 end
+-- pulled out from mcl_mobs because of missing method
+local function day_docile(self)
+
+	if self.docile_by_day == false then
+
+		return false
+
+	elseif self.docile_by_day == true
+	and self.time_of_day > 0.2
+	and self.time_of_day < 0.8 then
+
+		return true
+	end
+end
 
 ---Goblins will become aggro at range due to
 -- wielded weapon, player aggression, defending defined mob groups
 -- some attack code reused from Mobs Redo by TenPlus1
 function goblins.attack(self, target, type)
-    if self.state == "runaway" or self.state == "attack" or self:day_docile() or
+    
+    if self.state == "runaway" or self.state == "attack" or day_docile(self) or
         peaceful_only == true then
         -- print_s(S("player not considered"))
         return
@@ -386,8 +401,16 @@ function goblins.give_gift(self, clicker)
                 if (self.relations[pname].aggro * 2) <
                     self.relations[pname].trade then
                     self.state = "stand"
-                    self:set_velocity(0)
-                    self:set_animation("stand")
+                    if minetest.get_modpath("mcl_mobs") then
+                        --this does not quite work in MC2
+                        self.object:set_velocity({x = 0, y = 0, z = 0})
+                        mcl_mobs:set_animation(self, "stand")
+                    else
+                        self:set_velocity(0)
+                        self:set_animation("stand")
+                    end
+           
+                    
                     self.attack = nil
                     self.v_start = false
                     self.timer = 0
@@ -684,8 +707,8 @@ function goblins.tunneling(self, type)
                     end
                     local np_info = minetest.get_node(np)
                     -- print("     np_name: "..np_info.name)
-                    if np_info.name ~= "default:mossycobble" and np_info.name ~=
-                        "default:chest" then
+                    if np_info.name ~= goblins.comp.default.mossycobble and np_info.name ~=
+                        goblins.comp.default.chest then
                         self:set_animation("punch")
                         minetest.remove_node(np)
                         minetest.check_for_falling(np)
@@ -874,9 +897,9 @@ function goblins.goblin_dog_behaviors(self)
                 1, -- search_offset_above
                 2, -- search_offset_below
                 10, -- replace_rate
-                {"group:soil", "group:sand", "default:gravel"}, -- replace_what
+                {"group:soil", "group:sand", goblins.comp.default.gravel}, -- replace_what
                 "goblins:dirt_with_bone", 2, -- replace_rate_secondary
-                "default:dirt", -- replace_with_secondary
+                goblins.comp.default.dirt, -- replace_with_secondary
                 nil, -- decorate
                 false -- debug_me if debugging also enabled in behaviors.lua
                 )
@@ -889,9 +912,9 @@ function goblins.goblin_dog_behaviors(self)
                 1, -- search_offset_above
                 2, -- search_offset_below
                 10, -- replace_rate
-                {"group:soil", "group:sand", "default:gravel"}, -- replace_what
+                {"group:soil", "group:sand", goblins.comp.default.gravel}, -- replace_what
                 "goblins:dirt_with_stuff", 2, -- replace_rate_secondary
-                "default:dirt", -- replace_with_secondary
+                goblins.comp.default.dirt, -- replace_with_secondary
                 nil, -- decorate
                 false -- debug_me if debugging also enabled in behaviors.lua
                 )
@@ -906,17 +929,48 @@ function goblins.goblin_dog_behaviors(self)
     end
 end
 
+local atann = math.atan
+local pi = math.pi
+
+function goblins.yaw_to_pos(self,pos)
+    if not self then return end
+    local s=self.object:get_pos()
+    if not pos then
+        --self.state = "stand"
+        return end
+    if vector.distance(pos,s) < 1 then
+        --set_velocity(entity,0)
+        return true
+    end
+    local v = { x = pos.x - s.x, z = pos.z - s.z }
+    local yaw = (atann(v.z / v.x) + pi / 2) - self.rotate
+    if pos.x > s.x then yaw = yaw + pi end
+  self.object:set_yaw(yaw)
+end
+
+--maikerumine
+--made for MC like Survival game
+--License for code WTFPL and otherwise stated in readmes
+
+function goblins.yaw_to_pos2(self,pos)
+    if not pos then return end
+    self.object:set_yaw(minetest.dir_to_yaw(
+        vector.direction(
+             self.object:get_pos(),pos)))
+end
+
 function goblins.stop_and_face(self, pos)
-    mobs:yaw_to_pos(self, pos)
-    self.state = "stand"
-    self:set_velocity(0)
-    self:set_animation("stand")
+
     self.attack = nil
     self.v_start = false
-    self.timer = -5
-    self.pause_timer = .25
+    self.timer = -10
+    self.pause_timer = 5
     self.blinktimer = 0
     self.path.way = nil
+    self.state = "stand"
+    self.object:set_velocity({x = 0, y = 0, z = 0})
+    mobs:set_animation(self, "stand")
+    goblins.yaw_to_pos2(self,pos)
 end
 
 function goblins.award_goblins_chest(self, player)
@@ -930,11 +984,11 @@ function goblins.award_goblins_chest(self, player)
         local sname = meta:get_string("secret_name")
         local info = {self.secret_name, sname, self.chest_pos, pname}
         local pos_string = minetest.pos_to_string(info[3])
-        self.follow = {"default:mese", "default:obsidian"}
+        self.follow = {goblins.comp.default.mese, goblins.comp.default.obsidian}
         goblins.stop_and_face(self, self.chest_pos)
         local reward_text = S("@1 cackles and points to their magic chest (@2)",
                               info[1], pos_string)
-        local reward = {r_text = reward_text, r_item = "default:chest"}
+        local reward = {r_text = reward_text, r_item = goblins.comp.default.chest}
 
         -- meta:set_string("infotext", S("@1's chest of @2", info[1], info[2]))
         meta:set_string("infotext", S("@1's chest", pname))
@@ -945,7 +999,7 @@ function goblins.award_goblins_chest(self, player)
 end
 
 function goblins.place_chest(self, pos)
-    -- print("goblin attempting to place chest")
+     --print("goblin attempting to place chest")
     if pos and type(pos) == "table" then
         pos = vector.new(vector.round(pos))
     else
@@ -961,7 +1015,7 @@ function goblins.place_chest(self, pos)
         -- print("finding nodes between:" .. dump(area_min) .. " and " ..dump(area_max))
         local chest_pos_list = minetest.find_nodes_in_area_under_air(area_min,
                                                                      area_max, {
-            "default:mossycobble", "default:cobble"
+            goblins.comp.default.mossycobble, "group:stone"
         })
         -- print(dump(chest_pos_list))
         if chest_pos_list and #chest_pos_list >= 1 then

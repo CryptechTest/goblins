@@ -36,7 +36,7 @@ local S = minetest.get_translator("goblins")
           2, --search_offset_above
           1, --search_offset_below
           20, --replace_rate
-          "default:mossycobble", --replace_what
+          goblins.comp.default.mossycobble, --replace_what
           "goblins:moss", --replace_with
           nil, --replace_rate_secondary
           nil, --replace_with_secondary
@@ -57,7 +57,7 @@ local S = minetest.get_translator("goblins")
           20, --replace_rate
           { "group:stone",
             "group:torch"}, --replace_what
-          "default:mossycobble", --replace_with
+          goblins.comp.default.mossycobble, --replace_with
           90, --replace_rate_secondary
           "goblins:mossycobble_trap", --replace_with_secondary
           nil, --decorate
@@ -71,10 +71,10 @@ local S = minetest.get_translator("goblins")
     end,
     additional_properties = {
       goblin_tools = {
-                       "default:mossycobble",
-                       "default:axe_stone",
+                       goblins.comp.default.mossycobble,
+                       goblins.comp.default.axe_stone,
                        "goblins:moss",
-                       "default:sword_stone"
+                       goblins.comp.default.sword_stone
                      }
     },
     after_activate = function (self)

@@ -49,20 +49,30 @@ function goblins.generate(gob_types, goblin_template)
         local g_type = v
         for x, y in pairs(g_type) do
             -- print_s("found template modifiers " ..dump(x).." = "..dump(y))
+            -- print("k:"..dump(k).."x: "..dump(x).." y: "..dump(y).." v:"..dump(v))
+            if x == "description" then gob_types[k].name = y end
+            -- print(gob_types[k].name.." should be named: "..y) end
             g_template[x] = g_type[x]
         end
         print_s("Assembling the " .. g_template.description .. ":")
         if g_template.lore then print_s("  " .. g_template.lore) end
         if g_template.additional_properties and
             g_template.additional_properties.goblin_tools then
-            -- print("found in template:"..g_template.goblin_tool)
+            -- print("found in template:" .. dump(g_template.goblin_tool))
             goblins.tool_gen(g_template.additional_properties.goblin_tools)
         end
         -- print_s("resulting template: " ..dump(g_template))
         mobs:register_mob("goblins:goblin_" .. k, g_template)
-        mobs:register_egg("goblins:goblin_" .. k,
-                          S("@1  Egg", g_template.description),
-                          "default_mossycobble.png", 1)
+        if minetest.get_modpath("mcl_mobs") then
+            mobs:register_egg("goblins:goblin_" .. k,
+                              S("@1  Egg", g_template.description), "#020",
+                              "#484", 0)
+        else
+            mobs:register_egg("goblins:goblin_" .. k,
+                              S("@1  Egg", g_template.description),
+                              "default_mossycobble.png", 1)
+        end
+
         g_template.spawning.name = "goblins:goblin_" .. k -- spawn in the name of the key!
         mobs:spawn(g_template.spawning)
         if g_template.additional_properties then

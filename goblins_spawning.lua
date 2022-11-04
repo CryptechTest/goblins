@@ -36,7 +36,7 @@ end
 
 if not goblins.db_fields["snuffer_spawning"] then
     goblins.db_write("snuffer_spawning", {
-        nodes = {"default:mossycobble"},
+        nodes = {goblins.comp.default.mossycobble},
         neighbors = "air",
         min_light = 0,
         max_light = 10,
@@ -52,7 +52,7 @@ end
 
 if not goblins.db_fields["fungiler_spawning"] then
     goblins.db_write("fungiler_spawning", {
-        nodes = {"default:mossycobble"},
+        nodes = {goblins.comp.default.mossycobble},
         neighbors = "air",
         min_light = 0,
         max_light = 10,
@@ -68,7 +68,7 @@ end
 
 if not goblins.db_fields["coal_spawning"] then
     goblins.db_write("coal_spawning", {
-        nodes = {"default:stone_with_coal", "default:mossycobble"},
+        nodes = {goblins.comp.default.stone_with_coal, goblins.comp.default.mossycobble},
         neighbors = "air",
         min_light = 0,
         max_light = 10,
@@ -85,8 +85,8 @@ end
 if not goblins.db_fields["copper_spawning"] then
     goblins.db_write("copper_spawning", {
         nodes = {
-            "default:stone_with_copper", "default:mossycobble",
-            "default:blueberries"
+            goblins.comp.default.stone_with_copper, goblins.comp.default.mossycobble,
+            goblins.comp.default.blueberries
         },
         neighbors = "air",
         min_light = 0,
@@ -103,7 +103,7 @@ end
 
 if not goblins.db_fields["iron_spawning"] then
     goblins.db_write("iron_spawning", {
-        nodes = {"default:stone_with_iron", "default:mossycobble"},
+        nodes = {goblins.comp.default.stone_with_iron, goblins.comp.default.mossycobble},
         neighbors = "air",
         min_light = 0,
         max_light = 10,
@@ -119,7 +119,7 @@ end
 
 if not goblins.db_fields["gold_spawning"] then
     goblins.db_write("gold_spawning", {
-        nodes = {"default:stone_with_gold", "default:mossycobble"},
+        nodes = {goblins.comp.default.stone_with_gold, goblins.comp.default.mossycobble},
         neighbors = "air",
         min_light = 0,
         max_light = 10,
@@ -135,7 +135,7 @@ end
 
 if not goblins.db_fields["diamond_spawning"] then
     goblins.db_write("diamond_spawning", {
-        nodes = {"default:stone_with_diamond", "default:mossycobble"},
+        nodes = {goblins.comp.default.stone_with_diamond, goblins.comp.default.mossycobble},
         neighbors = "air",
         min_light = 0,
         max_light = 10,
@@ -151,7 +151,7 @@ end
 
 if not goblins.db_fields["hoarder_spawning"] then
     goblins.db_write("hoarder_spawning", {
-        nodes = {"default:mossycobble", "default:chest"},
+        nodes = {goblins.comp.default.mossycobble, goblins.comp.default.chest},
         neighbors = "air",
         min_light = 0,
         max_light = 10,
@@ -167,7 +167,7 @@ end
 
 if not goblins.db_fields["gobdog_spawning"] then
     goblins.db_write("gobdog_spawning", {
-        nodes = {"default:mossycobble", "group:sand"},
+        nodes = {goblins.comp.default.mossycobble, "group:sand"},
         min_light = 0,
         max_light = 14,
         chance = 500,
@@ -181,7 +181,7 @@ end
 
 if not goblins.db_fields["gobdog_aggro_spawning"] then
     goblins.db_write("gobdog_aggro_spawning", {
-        nodes = {"default:mossycobble", "group:sand"},
+        nodes = {goblins.comp.default.mossycobble, "group:sand"},
         min_light = 0,
         max_light = 6,
         chance = 500,
@@ -195,7 +195,7 @@ end
 
 if not goblins.db_fields["template_spawning"] then
     goblins.db_write("template_spawning", {
-        nodes = {"default:mossycobble"},
+        nodes = {goblins.comp.default.mossycobble},
         min_light = 0,
         max_light = 10,
         chance = 500,

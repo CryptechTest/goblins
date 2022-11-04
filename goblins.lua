@@ -52,8 +52,8 @@ goblins.gob_types = {
                     1, -- search_offset_below
                     2, -- replace_rate
                     {
-                        "group:soil", "group:sand", "default:gravel",
-                        "default:stone", "default:desert_stone", "group:torch"
+                        "group:soil", "group:sand", goblins.comp.default.gravel,
+                        goblins.comp.default.stone, goblins.comp.default.desert_stone, "group:torch"
                     }, -- replace_what
                     "air", -- replace_with
                     nil, -- replace_rate_secondary
@@ -73,8 +73,8 @@ goblins.gob_types = {
                 1, -- search_offset_below
                 10, -- replace_rate
                 {
-                    "group:soil", "group:sand", "default:gravel",
-                    "default:stone", "default:desert_stone", "group:torch"
+                    "group:soil", "group:sand", goblins.comp.default.gravel,
+                    goblins.comp.default.stone, goblins.comp.default.desert_stone, "group:torch"
                 }, -- replace_what
                 "air", -- replace_with
                 nil, -- replace_rate_secondary
@@ -89,12 +89,12 @@ goblins.gob_types = {
         spawning = goblins.db_read("digger_spawning"),
         additional_properties = {
             goblin_tools = {
-                "goblins:pick_mossycobble", "default:pick_stone",
-                "default:pick_wood"
+                "goblins:pick_mossycobble", goblins.comp.default.pick_stone,
+                goblins.comp.default.pick_wood
             }
         },
         after_activate = function(self)
-            -- self.goblin_tools = {"goblins:pick_mossycobble","default:pick_stone","default:pick_wood"}
+            -- self.goblin_tools = {"goblins:pick_mossycobble",goblins.comp.default.pick_stone,goblins.comp.default.pick_wood}
             goblins.tool_attach(self, self.goblin_tools)
         end
     },
@@ -130,7 +130,7 @@ goblins.gob_types = {
                 2, -- search_offset_above
                 1, -- search_offset_below
                 20, -- replace_rate
-                "default:mossycobble", -- replace_what
+                goblins.comp.default.mossycobble, -- replace_what
                 "goblins:moss", -- replace_with
                 nil, -- replace_rate_secondary
                 nil, -- replace_with_secondary
@@ -147,7 +147,7 @@ goblins.gob_types = {
                 1, -- search_offset_below
                 20, -- replace_rate
                 {"group:stone", "group:torch"}, -- replace_what
-                "default:mossycobble", -- replace_with
+                goblins.comp.default.mossycobble, -- replace_with
                 90, -- replace_rate_secondary
                 "goblins:mossycobble_trap", -- replace_with_secondary
                 nil, -- decorate
@@ -158,8 +158,8 @@ goblins.gob_types = {
         end,
         additional_properties = {
             goblin_tools = {
-                "default:mossycobble", "default:axe_stone", "goblins:moss",
-                "default:sword_stone"
+                goblins.comp.default.mossycobble, goblins.comp.default.axe_stone, "goblins:moss",
+                goblins.comp.default.sword_stone
             }
         },
         after_activate = function(self)
@@ -200,7 +200,7 @@ goblins.gob_types = {
             )
         end,
         additional_properties = {
-            goblin_tools = {"default:axe_stone", "default:stick"}
+            goblin_tools = {goblins.comp.default.axe_stone, goblins.comp.default.stick}
         },
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
@@ -291,7 +291,7 @@ goblins.gob_types = {
         do_custom = function(self)
             goblins.danger_dig(self)
             if math.random() < 0.0001 then -- vary rarely will attack and only if player looks like a threat
-                goblins.tool_attach(self, "default:sword_stone")
+                goblins.tool_attach(self, goblins.comp.default.sword_stone)
                 goblins.attack(self)
                 -- print("looking for a reason to fight")
             elseif math.random() < 0.01 then
@@ -304,8 +304,8 @@ goblins.gob_types = {
             2, -- search_offset_above
             1, -- search_offset_below
             10, -- replace_rate
-            {"default:mossycobble", "default:stone_with_coal", "group:torch"}, -- replace_what
-                                   "default:mossycobble", -- replace_with
+            {goblins.comp.default.mossycobble, goblins.comp.default.stone_with_coal, "group:torch"}, -- replace_what
+                                   goblins.comp.default.mossycobble, -- replace_with
             50, -- replace_rate_secondary
             "goblins:stone_with_coal_trap", -- replace_with_secondary
             nil, -- decorate
@@ -314,7 +314,7 @@ goblins.gob_types = {
             )
         end,
         additional_properties = {
-            goblin_tools = {"goblins:pick_mossycobble", "default:coal_lump"}
+            goblin_tools = {"goblins:pick_mossycobble", goblins.comp.default.coal_lump}
         },
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
@@ -336,7 +336,7 @@ goblins.gob_types = {
         do_custom = function(self)
             goblins.danger_dig(self)
             if math.random() < 0.00001 then -- may take a while to build courage
-                goblins.tool_attach(self, "default:sword_bronze")
+                goblins.tool_attach(self, goblins.comp.default.sword_bronze)
                 goblins.attack(self)
                 -- print("looking for a reason to fight")
             elseif math.random() < 0.01 then
@@ -349,8 +349,8 @@ goblins.gob_types = {
             2, -- search_offset_above
             1, -- search_offset_below
             10, -- replace_rate
-            {"default:mossycobble", "default:stone_with_copper", "group:torch"}, -- replace_what
-                                   "default:mossycobble", -- replace_with
+            {goblins.comp.default.mossycobble, goblins.comp.default.stone_with_copper, "group:torch"}, -- replace_what
+                                   goblins.comp.default.mossycobble, -- replace_with
             50, -- replace_rate_secondary
             "goblins:stone_with_copper_trap", -- replace_with_secondary
             nil, -- decorate
@@ -359,7 +359,7 @@ goblins.gob_types = {
             )
         end,
         additional_properties = {
-            goblin_tools = {"default:pick_bronze", "default:sword_bronze"}
+            goblin_tools = {goblins.comp.default.pick_bronze, goblins.comp.default.sword_bronze}
         },
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
@@ -379,7 +379,7 @@ goblins.gob_types = {
         do_custom = function(self)
             goblins.danger_dig(self)
             if math.random() < 0.01 then
-                goblins.tool_attach(self, "default:sword_steel")
+                goblins.tool_attach(self, goblins.comp.default.sword_steel)
                 goblins.attack(self)
                 -- print("looking for a reason to fight")
             elseif math.random() < 0.01 then
@@ -392,8 +392,8 @@ goblins.gob_types = {
             2, -- search_offset_above
             1, -- search_offset_below
             10, -- replace_rate
-            {"default:mossycobble", "default:stone_with_iron", "group:torch"}, -- replace_what
-                                   "default:mossycobble", -- replace_with
+            {goblins.comp.default.mossycobble, goblins.comp.default.stone_with_iron, "group:torch"}, -- replace_what
+                                   goblins.comp.default.mossycobble, -- replace_with
             50, -- replace_rate_secondary
             "goblins:stone_with_iron_trap", -- replace_with_secondary
             nil, -- decorate
@@ -403,7 +403,7 @@ goblins.gob_types = {
         end,
         additional_properties = {
             goblin_tools = {
-                "default:pick_steel", "default:sword_steel", "default:axe_steel"
+                goblins.comp.default.pick_steel, goblins.comp.default.sword_steel, goblins.comp.default.axe_steel
             }
         },
         after_activate = function(self)
@@ -424,7 +424,7 @@ goblins.gob_types = {
         do_custom = function(self)
             goblins.danger_dig(self)
             if math.random() < 0.01 then
-                goblins.tool_attach(self, "default:sword_diamond")
+                goblins.tool_attach(self, goblins.comp.default.sword_diamond)
                 goblins.attack(self)
                 -- print("looking for a reason to fight")
             elseif math.random() < 0.01 then
@@ -437,8 +437,8 @@ goblins.gob_types = {
             2, -- search_offset_above
             1, -- search_offset_below
             10, -- replace_rate
-            {"default:mossycobble", "default:stone_with_gold", "group:torch"}, -- replace_what
-                                   "default:mossycobble", -- replace_with
+            {goblins.comp.default.mossycobble, goblins.comp.default.stone_with_gold, "group:torch"}, -- replace_what
+                                   goblins.comp.default.mossycobble, -- replace_with
             30, -- replace_rate_secondary
             "goblins:stone_with_gold_trap", -- replace_with_secondary
             nil, -- decorate
@@ -447,7 +447,7 @@ goblins.gob_types = {
             )
         end,
         additional_properties = {
-            goblin_tools = {"default:sword_steel", "default:sword_diamond"}
+            goblin_tools = {goblins.comp.default.sword_steel, goblins.comp.default.sword_diamond}
         },
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
@@ -469,7 +469,7 @@ goblins.gob_types = {
         do_custom = function(self)
             goblins.danger_dig(self)
             if math.random() < 0.01 then
-                goblins.tool_attach(self, "default:sword_diamond")
+                goblins.tool_attach(self, goblins.comp.default.sword_diamond)
                 goblins.attack(self)
                 -- print("looking for a reason to fight")
             elseif math.random() < 0.01 then
@@ -482,8 +482,8 @@ goblins.gob_types = {
             2, -- search_offset_above
             1, -- search_offset_below
             10, -- replace_rate
-            {"default:mossycobble", "default:stone_with_diamond", "group:torch"}, -- replace_what
-                                   "default:mossycobble", -- replace_with
+            {goblins.comp.default.mossycobble, goblins.comp.default.stone_with_diamond, "group:torch"}, -- replace_what
+                                   goblins.comp.default.mossycobble, -- replace_with
             30, -- replace_rate_secondary
             "goblins:stone_with_diamond_trap", -- replace_with_secondary
             nil, -- decorate
@@ -492,7 +492,7 @@ goblins.gob_types = {
             )
         end,
         additional_properties = {
-            goblin_tools = {"default:sword_diamond", "default:pick_diamond"}
+            goblin_tools = {goblins.comp.default.sword_diamond, goblins.comp.default.pick_diamond}
         },
         after_activate = function(self)
             goblins.tool_attach(self, self.goblin_tools)
@@ -512,7 +512,7 @@ goblins.gob_types = {
         do_custom = function(self)
             goblins.danger_dig(self)
             if math.random() < 0.01 then
-                goblins.tool_attach(self, "default:sword_mese")
+                goblins.tool_attach(self, goblins.comp.default.sword_mese)
                 goblins.attack(self)
                 -- print("looking for a reason to fight")
             elseif math.random() < 0.01 then
@@ -527,7 +527,7 @@ goblins.gob_types = {
             1, -- search_offset_below
             10, -- replace_rate
             {"group:stone", "group:torch"}, -- replace_what
-            "default:mossycobble", -- replace_with
+            goblins.comp.default.mossycobble, -- replace_with
             10, -- replace_rate_secondary
             "goblins:mossycobble_trap", -- replace_with_secondary
             nil, -- decorate
@@ -537,8 +537,8 @@ goblins.gob_types = {
         end,
         additional_properties = {
             goblin_tools = {
-                "default:pick_mese", "default:sword_diamond",
-                "default:sword_mese"
+                goblins.comp.default.pick_mese, goblins.comp.default.sword_diamond,
+                goblins.comp.default.sword_mese
             }
         },
         after_activate = function(self)
@@ -551,7 +551,7 @@ goblins.gob_types = {
 }
 
 -- gob_types.king = gob_types.hoarder  -- for compatability
-mobs:alias_mob("goblins:goblin_king", "goblins:goblin_hoarder")
+--mobs:alias_mob("goblins:goblin_king", "goblins:goblin_hoarder")
 
 ----------------------------------
 -- DEFAULT GOBLIN TEMPLATES
