@@ -1,13 +1,10 @@
-# [goblins] Goblins (Mobs Redo addon) [mod] for Minetest 
+# [goblins] Goblins (Mobs Redo addon) [mod] for Minetest Game and MineClone 2
 
-* forum: https://forum.minetest.net/viewtopic.php?f=9&t=13004
-* code: https://gitlab.com/freelikegnu/goblins
-  (github repository is now deprecated to be archived!)
-* Minetest Content DB: https://content.minetest.net/packages/FreeLikeGNU/goblins/
+This mod adds several Goblins (and Goblin Dogs) to Minetest that will spawn near ore deposits or lairs underground.
 
-* Compatable with both Minetest Game and MineClone 2!
-    * https://content.minetest.net/packages/Wuzzy/mineclone2/
-This mod adds several Goblins (and Goblin Dogs) to Minetest that should spawn near ore deposits or lairs underground.
+## Features
+
+* Compatible with both Minetest Game and [MineClone 2](https://content.minetest.net/packages/Wuzzy/mineclone2/)!
 * Some Goblins have loot filled chests nearby! Can you befriend or defeat these goblins?
 * Goblins dig caves, destroy torches, create lairs, set traps, cultivate mushrooms and some are aggressive.
 * Gobdogs will roam caves, bury bones and other items in soft terrain, eat meats. Some Gobdogs are aggressive!
@@ -28,9 +25,9 @@ these can also be defined in the settingtypes.txt
 * Goblin related follow and drop items now moved to mod_storage
 * Goblin spawning parameters moved to mod_storage
 * A basic and optional (enabled in minetest setting menu) HUD is available
-* tested with Minetest 5.2 and 5.30(dev)
+* tested with Minetest 5.4 and 5.70(dev)
 
-## Required Mods:
+## Required Mods (only if using Minetest Game):
 * Mobs Redo by TenPlus1 API as of version 20200516: to run
     * https://forum.minetest.net/viewtopic.php?f=9&t=9917
     * Mobs Redo git repository  https://notabug.org/TenPlus1/mobs_redo
@@ -86,10 +83,10 @@ these can also be defined in the settingtypes.txt
  * goblins_goblin_breathing: spookymodem 
     * https://freesound.org/people/spookymodem/ (CC-0)
  * goblins_goblin_dog_ sounds:
-    * delphidebrain Jazz the Dog Howl & Bark (CC-BY-SA)
-        * https://freesound.org/people/delphidebrain/sounds/236027/
-   * Glitchedtones Dog Shih Tzu Growling 06.wav (CC-BY-SA)
-        * https://freesound.org/people/Glitchedtones/sounds/372533/
+     delphidebrain Jazz the Dog Howl & Bark (CC-BY-SA)
+       * https://freesound.org/people/delphidebrain/sounds/236027/
+ * Glitchedtones Dog Shih Tzu Growling 06.wav (CC-BY-SA)
+       * https://freesound.org/people/Glitchedtones/sounds/372533/
 
 * Super thanks to duane-r for his work on nasty traps and tunneling  https://github.com/duane-r 
 
@@ -104,4 +101,12 @@ these can also be defined in the settingtypes.txt
 * Thanks to rubenwardy for awesome help and the Minetest ContentDB
 * Thanks to everyone in the Minetest forums and IRC for just being great!
 * Thanks to kristovish for testing and providing crash reports from their live populated server!
+  
+  ## Links
+
+* forum: https://forum.minetest.net/viewtopic.php?f=9&t=13004
+* code: https://gitlab.com/freelikegnu/goblins
+  (github repository is now deprecated to be archived!)
+* Minetest Content DB: https://content.minetest.net/packages/FreeLikeGNU/goblins/
+  
 GET MINETEST: https://www.minetest.net/
