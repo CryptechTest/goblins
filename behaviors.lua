@@ -121,7 +121,7 @@ function goblins.attack(self, target, type)
                     relations_adj = relations.trade - relations.aggro
                 end
                 goblins.debug(S("relations = @1", dump(relations)))
-                if mobs.invis[pname] or self.owner == pname then
+                if goblins.invis[pname] or self.owner == pname then
                     local name = ""
                 else
                     local player = objs[n]
@@ -134,7 +134,7 @@ function goblins.attack(self, target, type)
                                 dump(objs[n]:get_wielded_item():to_string())))
                 if self.attack_players == false or relations_adj >= 100 or
                     not self.owner == pname -- or not self.tamed
-                or mobs.invis[pname] or self.specific_attack == "player" then
+                or goblins.invis[pname] or self.specific_attack == "player" then
                     goblins.debug(S(
                                       "found exempt player with score of @1 holding @2",
                                       relations_adj, dump(
@@ -969,7 +969,7 @@ function goblins.stop_and_face(self, pos)
     self.path.way = nil
     self.state = "stand"
     self.object:set_velocity({x = 0, y = 0, z = 0})
-    mobs:set_animation(self, "stand")
+    goblins:set_animation(self, "stand")
     goblins.yaw_to_pos2(self,pos)
 end
 

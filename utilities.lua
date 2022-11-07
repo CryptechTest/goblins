@@ -49,9 +49,10 @@ function goblins.generate(gob_types, goblin_template)
         local g_type = v
         for x, y in pairs(g_type) do
             -- print_s("found template modifiers " ..dump(x).." = "..dump(y))
-            -- print("k:"..dump(k).."x: "..dump(x).." y: "..dump(y).." v:"..dump(v))
-            if x == "description" then gob_types[k].name = y end
-            -- print(gob_types[k].name.." should be named: "..y) end
+             --print("k:"..dump(k).."x: "..dump(x).." y: "..dump(y).." v:"..dump(v))
+            --if x == "description" then gob_types[k].name = y end
+            --print("name is"..gob_types[k].name.." with description "..dump(y))
+            
             g_template[x] = g_type[x]
         end
         print_s("Assembling the " .. g_template.description .. ":")
@@ -62,25 +63,27 @@ function goblins.generate(gob_types, goblin_template)
             goblins.tool_gen(g_template.additional_properties.goblin_tools)
         end
         -- print_s("resulting template: " ..dump(g_template))
-        mobs:register_mob("goblins:goblin_" .. k, g_template)
+        goblins:register_mob("goblins:goblin_" .. k, g_template)
         if minetest.get_modpath("mcl_mobs") then
-            mobs:register_egg("goblins:goblin_" .. k,
+           goblins:register_egg("goblins:goblin_" .. k,
                               S("@1  Egg", g_template.description), "#020",
                               "#484", 0)
         else
-            mobs:register_egg("goblins:goblin_" .. k,
+            goblins:register_egg("goblins:goblin_" .. k,
                               S("@1  Egg", g_template.description),
                               "default_mossycobble.png", 1)
         end
 
         g_template.spawning.name = "goblins:goblin_" .. k -- spawn in the name of the key!
-        mobs:spawn(g_template.spawning)
+         --print("def.name: "..g_template.spawning.name)
+            goblins:spawn(g_template.spawning)
+
         if g_template.additional_properties then
             for x, y in pairs(g_template.additional_properties) do
                 minetest.registered_entities["goblins:goblin_" .. k][x] = y
             end
         end
-        -- print(dump(minetest.registered_entities["goblins:goblin_"..k]))
+        --print(dump(minetest.registered_entities["goblins:goblin_"..k]))
         g_template = {}
     end
 end

@@ -5,7 +5,7 @@ minetest.register_node("goblins:mossycobble_trap", {
     tiles = {goblins.comp.png.mossycobble},
     is_ground_content = false,
     groups = {cracky = 2, stone = 1},
-    sounds = default.node_sound_stone_defaults(),
+    sounds = goblins.node_sound_stone_defaults(),
     paramtype = "light",
     light_source = 3
 })
@@ -16,7 +16,7 @@ minetest.register_node("goblins:stone_with_coal_trap", {
     groups = {cracky = 1, level = 2},
     drop = 'goblins.comp.default.coal_lump',
     is_ground_content = false,
-    sounds = default.node_sound_stone_defaults(),
+    sounds = goblins.node_sound_stone_defaults(),
     on_punch = function(pos, node, puncher)
         if puncher:is_player() then
             if math.random(0, 100) < 10 then -- chance player will get hurt mining this
@@ -40,7 +40,7 @@ minetest.register_node("goblins:stone_with_iron_trap", {
     groups = {cracky = 1, level = 2},
     drop = goblins.comp.default.iron_lump,
     is_ground_content = false,
-    sounds = default.node_sound_stone_defaults(),
+    sounds = goblins.node_sound_stone_defaults(),
     on_punch = function(pos, node, puncher)
         if puncher:is_player() then
             if math.random(0, 100) < 25 then -- chance player will get hurt mining this
@@ -64,7 +64,7 @@ minetest.register_node("goblins:stone_with_copper_trap", {
     groups = {cracky = 1, level = 2},
     drop = goblins.comp.default.copper_lump,
     is_ground_content = false,
-    sounds = default.node_sound_stone_defaults(),
+    sounds = goblins.node_sound_stone_defaults(),
     on_punch = function(pos, node, puncher)
         if puncher:is_player() then
             if math.random(0, 100) < 50 then -- chance player will get hurt mining this
@@ -87,7 +87,7 @@ minetest.register_node("goblins:stone_with_gold_trap", {
     groups = {cracky = 1, level = 2},
     drop = goblins.comp.default.gold_lump,
     is_ground_content = false,
-    sounds = default.node_sound_stone_defaults(),
+    sounds = goblins.node_sound_stone_defaults(),
     on_punch = function(pos, node, puncher)
         if puncher:is_player() then
             if math.random(0, 100) < 50 then -- chance player will get hurt mining this
@@ -110,7 +110,7 @@ minetest.register_node("goblins:stone_with_diamond_trap", {
     groups = {cracky = 1, level = 3},
     drop = goblins.comp.default.diamond,
     is_ground_content = false,
-    sounds = default.node_sound_stone_defaults(),
+    sounds = goblins.node_sound_stone_defaults(),
     on_punch = function(pos, node, puncher)
         if puncher:is_player() then
             if math.random(0, 100) < 75 then -- chance player will get hurt mining this
@@ -156,7 +156,7 @@ minetest.register_node("goblins:molten_gold_source", {
         }
     },
     paramtype = "light",
-    light_source = default.LIGHT_MAX - 1,
+    light_source = minetest.LIGHT_MAX - 1,
     walkable = false,
     pointable = false,
     diggable = false,
@@ -203,7 +203,7 @@ minetest.register_node("goblins:molten_gold_flowing", {
     },
     paramtype = "light",
     paramtype2 = "flowingliquid",
-    light_source = default.LIGHT_MAX - 1,
+    light_source = minetest.LIGHT_MAX - 1,
     walkable = false,
     pointable = false,
     diggable = false,

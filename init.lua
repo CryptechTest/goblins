@@ -11,24 +11,6 @@ local mobs_req = 20220903
 
 local S = minetest.get_translator("goblins")
 
-if minetest.get_modpath("mcl_mobs") and minetest.get_modpath("mcl_core") then
-    print(S("Goblins say: Smells like MineClone Game!"))
-    dofile(path .. "/mc2_compat.lua")
-else
-    dofile(path .. "/mtg_compat.lua")
-    if mobs.version then
-        if tonumber(mobs.version) >= tonumber(mobs_req) then
-            print(S("Mobs Redo @1 or greater found!", mobs_req))
-        else
-            print(S("You should find a more recent version of Mobs Redo!"))
-            print(S("https://notabug.org/TenPlus1/mobs_redo"))
-        end
-    else
-        print(S("This mod requires Mobs Redo version 2020516 or greater!"))
-        print(S("https://notabug.org/TenPlus1/mobs_redo"))
-    end
-end
-
 -- Strips any kind of escape codes (translation, colors) from a string
 -- https://github.com/minetest/minetest/blob/53dd7819277c53954d1298dfffa5287c306db8d0/src/util/string.cpp#L777
 function goblins.strip_escapes(input)
@@ -58,6 +40,23 @@ function goblins.strip_escapes(input)
 end
 
 local function print_s(input) print(goblins.strip_escapes(input)) end
+if minetest.get_modpath("mcl_mobs") and minetest.get_modpath("mcl_core") then
+    print(S("Goblins say: Smells like MineClone Game!"))
+    dofile(path .. "/mc2_compat.lua")
+else
+    dofile(path .. "/mtg_compat.lua")
+    if mobs.version then
+        if tonumber(mobs.version) >= tonumber(mobs_req) then
+            print(S("Mobs Redo @1 or greater found!", mobs_req))
+        else
+            print(S("You should find a more recent version of Mobs Redo!"))
+            print(S("https://notabug.org/TenPlus1/mobs_redo"))
+        end
+    else
+        print(S("This mod requires Mobs Redo version 2020516 or greater!"))
+        print(S("https://notabug.org/TenPlus1/mobs_redo"))
+    end
+end
 
 function goblins.mr(min, max)
     local v = 1
@@ -143,10 +142,9 @@ if not goblins.db_fields["relations"] then
 end
 
 -- compatability with minimal game
-if not default.LIGHT_MAX then
-    default.LIGHT_MAX = 14
-    LIGHT_MAX = default.LIGHT_MAX
-end
+    minetest.LIGHT_MAX = minetest.LIGHT_MAX or 14
+
+
 
 minetest.log("action", "[MOD] goblins " .. goblins.version .. " is lowdings....")
 print_s(S(

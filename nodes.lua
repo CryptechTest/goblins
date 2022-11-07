@@ -3,7 +3,7 @@ minetest.register_node(":" .. goblins.comp.default.mossycobble, {
     tiles = {goblins.comp.png.mossycobble},
     is_ground_content = false,
     groups = {cracky = 3, stone = 1},
-    sounds = default.node_sound_stone_defaults({
+    sounds = goblins.node_sound_stone_defaults({
         footstep = {name = "goblins_mossycobble_footstep", gain = 0.4}
     }),
     paramtype = "light",
@@ -21,7 +21,7 @@ minetest.register_node("goblins:moss", {
     buildable_to = true,
     is_ground_content = false,
     groups = {crumbly = 3, slippery = 2, falling_node = 1},
-    sounds = default.node_sound_dirt_defaults({
+    sounds = goblins.node_sound_dirt_defaults({
         footstep = {name = "goblins_mossycobble_footstep", gain = 0.4}
     }),
 
@@ -58,7 +58,7 @@ minetest.register_node("goblins:mossx", {
     buildable_to = true,
     is_ground_content = false,
     groups = {crumbly = 3, slippery = 2, falling_node = 1, attached_node = 1},
-    sounds = default.node_sound_dirt_defaults({
+    sounds = goblins.node_sound_dirt_defaults({
         footstep = {name = "goblins_mossycobble_footstep", gain = 0.4}
     }),
 
@@ -94,7 +94,7 @@ minetest.register_node("goblins:mushroom_goblin", {
         attached_node = 1,
         flammable = 1
     },
-    sounds = default.node_sound_leaves_defaults(),
+    sounds = goblins.node_sound_leaves_defaults(),
     on_use = minetest.item_eat(2),
     selection_box = {
         type = "fixed",
@@ -127,7 +127,7 @@ minetest.register_node("goblins:mushroom_goblin2", {
         attached_node = 1,
         flammable = 1
     },
-    sounds = default.node_sound_leaves_defaults(),
+    sounds = goblins.node_sound_leaves_defaults(),
     on_use = minetest.item_eat(2),
     selection_box = {
         type = "fixed",
@@ -160,7 +160,7 @@ minetest.register_node("goblins:mushroom_goblin3", {
         attached_node = 1,
         flammable = 1
     },
-    sounds = default.node_sound_leaves_defaults(),
+    sounds = goblins.node_sound_leaves_defaults(),
     on_use = minetest.item_eat(2),
     selection_box = {
         type = "fixed",
@@ -192,7 +192,7 @@ minetest.register_node("goblins:mushroom_goblin4", {
         attached_node = 1,
         flammable = 1
     },
-    sounds = default.node_sound_leaves_defaults(),
+    sounds = goblins.node_sound_leaves_defaults(),
     on_use = minetest.item_eat(2),
     selection_box = {
         type = "fixed",
@@ -349,7 +349,7 @@ minetest.register_node("goblins:dirt_with_bone", {
             }, {items = {"goblins:goblins_goblin_bone"}}
         }
     },
-    sounds = default.node_sound_dirt_defaults({
+    sounds = goblins.node_sound_dirt_defaults({
         footstep = {name = "default_grass_footstep", gain = 0.25}
     })
 })
@@ -387,7 +387,7 @@ minetest.register_node("goblins:dirt_with_stuff", {
             }
         }
     },
-    sounds = default.node_sound_dirt_defaults({
+    sounds = goblins.node_sound_dirt_defaults({
         footstep = {name = "default_grass_footstep", gain = 0.25}
     })
 })

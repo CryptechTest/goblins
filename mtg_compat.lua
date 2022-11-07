@@ -1,4 +1,5 @@
 -- this file sets content names for Minetest Game 
+
 goblins.comp = {
     default = {
         -- nodes
@@ -88,5 +89,34 @@ goblins.comp = {
         mineral_diamond = "default_mineral_diamond.png"
 
     }
-
 }
+
+goblins.invis = mobs.invis
+
+function goblins:register_egg(...)
+    mobs:register_egg(...)
+end
+
+function goblins:register_mob(...)
+    mobs:register_mob(...)
+end
+
+function goblins:spawn(def)
+    mobs:spawn(def)
+end
+
+function goblins:set_animation(...)
+    mobs:set_animation(...)
+end
+
+function goblins.node_sound_stone_defaults(...)
+    default.node_sound_stone_defaults(...)
+end
+
+function goblins.node_sound_dirt_defaults(...)
+    default.node_sound_dirt_defaults(...)
+end
+
+function goblins.node_sound_leaves_defaults(...)
+    default.node_sound_leaves_defaults(...)
+end
