@@ -1,3 +1,4 @@
+* Update 2022/12/17 MC2 Nodefixes suggested by Corax, Thanks!
 * Update 2022/11/06 MC2 spawning fixes
 * Update 2022/11/03 Support added for MineClone 2!! ( https://content.minetest.net/packages/Wuzzy/mineclone2/ )
 * Update 2022/10/29 fix settings and other vars, move spawning to mod_storage

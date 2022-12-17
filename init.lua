@@ -6,7 +6,7 @@ goblins = {}
 goblins.db = minetest.get_mod_storage()
 goblins.db:set_string("goblins mod start time", os.date())
 
-goblins.version = 20221029
+goblins.version = 20221217
 local mobs_req = 20220903
 
 local S = minetest.get_translator("goblins")

@@ -2,10 +2,12 @@ minetest.register_node(":" .. goblins.comp.default.mossycobble, {
     description = "Mossy Cobblestone",
     tiles = {goblins.comp.png.mossycobble},
     is_ground_content = false,
-    groups = {cracky = 3, stone = 1},
+    groups = {cracky = 3, stone = 1, pickaxey=1, building_block=1, material_stone=1},
     sounds = goblins.node_sound_stone_defaults({
         footstep = {name = "goblins_mossycobble_footstep", gain = 0.4}
     }),
+    _mcl_blast_resistance = 6,
+	_mcl_hardness = 2,
     paramtype = "light",
     light_source = 0
 })
@@ -333,8 +335,8 @@ minetest.register_node("goblins:dirt_with_bone", {
         }
     },
     groups = {
-        crumbly = 3,
-        soil = 1
+        crumbly = 3, soil = 1, handy = 1, shovely = 1, dirt = 2,
+		path_creation_possible=1
         -- not_in_creative_inventory = 1
     },
     drop = {
@@ -351,7 +353,9 @@ minetest.register_node("goblins:dirt_with_bone", {
     },
     sounds = goblins.node_sound_dirt_defaults({
         footstep = {name = "default_grass_footstep", gain = 0.25}
-    })
+    }),
+    _mcl_blast_resistance = 0.6,
+	_mcl_hardness = 0.6,
 })
 
 minetest.register_node("goblins:dirt_with_stuff", {
@@ -365,8 +369,8 @@ minetest.register_node("goblins:dirt_with_stuff", {
         }
     },
     groups = {
-        crumbly = 3,
-        soil = 1
+        crumbly = 3, soil = 1, handy = 1, shovely = 1, dirt = 2,
+		path_creation_possible=1
         -- not_in_creative_inventory = 1
     },
     drop = {
@@ -389,7 +393,9 @@ minetest.register_node("goblins:dirt_with_stuff", {
     },
     sounds = goblins.node_sound_dirt_defaults({
         footstep = {name = "default_grass_footstep", gain = 0.25}
-    })
+    }),
+    _mcl_blast_resistance = 0.6,
+	_mcl_hardness = 0.6,
 })
 
 minetest.register_alias("goblins:chest_locked",
