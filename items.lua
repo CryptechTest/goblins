@@ -133,7 +133,7 @@ function goblins.tool_attach(self, tool)
         -- local rnd_tool = tool[math.random(1,#tool)]
         tool_attach_engine(self, rnd_tool)
         -- print("attaching "..rnd_tool)
-    else
+    elseif tool then
         tool_attach_engine(self, tool)
     end
 end
