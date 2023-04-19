@@ -1,13 +1,13 @@
 -- more things to craft soon...
-local craft_ingreds = {mossycobble = goblins.comp.default.mossycobble}
+local craft_ingreds = { mossycobble = goblins.comp.default.mossycobble }
 
 for name, mat in pairs(craft_ingreds) do
     minetest.register_craft({
         output = "goblins:pick_" .. name,
         recipe = {
-            {mat, mat, mat},
-            {"", "group:stick", ""},
-            {"", "group:stick", ""}
+            { mat, mat,           mat },
+            { "",  "group:stick", "" },
+            { "",  "group:stick", "" }
         }
     })
 end
@@ -18,12 +18,12 @@ minetest.register_tool("goblins:pick_mossycobble", {
         full_punch_interval = 1.2,
         max_drop_level = 0,
         groupcaps = {
-            cracky = {times = {[2] = 1.8, [3] = 0.90}, uses = 25, maxlevel = 1}
+            cracky = { times = { [2] = 1.8,[3] = 0.90 }, uses = 25, maxlevel = 1 }
         },
-        damage_groups = {fleshy = 3}
+        damage_groups = { fleshy = 3 }
     },
-    sound = {breaks = "default_tool_breaks"},
-    groups = {pickaxe = 1}
+    sound = { breaks = "default_tool_breaks" },
+    groups = { pickaxe = 1 }
 })
 
 local goblin_tool = {}
@@ -31,9 +31,9 @@ goblin_tool = {
     initial_properties = {
         -- physical = true,
         pointable = false,
-        collisionbox = {0, 0, 0, 0, 0, 0},
+        collisionbox = { 0, 0, 0, 0, 0, 0 },
         visual = "wielditem",
-        visual_size = {x = 0.15, y = 0.15},
+        visual_size = { x = 0.15, y = 0.15 },
         wield_item = goblins.comp.default.stick
     },
     message = "Default message",
@@ -101,8 +101,8 @@ local function tool_attach_engine(self, tool)
     -- ..tool_gen(tool)
     -- print("tool name:"..tool_name)
     local item = minetest.add_entity(self.object:get_pos(), tool_name)
-    item:set_attach(self.object, "Arm_Right", {x = 0.15, y = 2.0, z = 1.75},
-                    {x = -90, y = 180, z = 90})
+    item:set_attach(self.object, "Arm_Right", { x = 0.15, y = 2.0, z = 1.75 },
+        { x = -90, y = 180, z = 90 })
     -- print(dump(self.goblin_tools))
     item:get_luaentity().owner = self.object
     self.current_tool = tool
@@ -127,13 +127,13 @@ function goblins.tool_attach(self, tool)
     -- if not tool_check(tool) then
     --   tool = goblins.comp.default.stick
     -- end
-    if type(tool) == "table" then
+    if self and type(tool) == "table" then
         local rnd_tool = wrandom(tool)
         -- print("attaching "..rnd_tool)
         -- local rnd_tool = tool[math.random(1,#tool)]
         tool_attach_engine(self, rnd_tool)
         -- print("attaching "..rnd_tool)
-    elseif tool then
+    elseif self and tool then
         tool_attach_engine(self, tool)
     end
 end
