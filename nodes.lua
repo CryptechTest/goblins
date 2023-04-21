@@ -1,3 +1,4 @@
+local S = minetest.get_translator("goblins")
 minetest.register_node(":" .. goblins.comp.default.mossycobble, {
     description = "Mossy Cobblestone",
     tiles = {goblins.comp.png.mossycobble},
@@ -72,7 +73,8 @@ minetest.register_node("goblins:mossx", {
 })
 
 minetest.register_node("goblins:mushroom_goblin", {
-    description = "gobble mushroom",
+    description = "gobble mushroom" .. '\n' ..
+    minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
     tiles = {
         "goblins_mushroom_brown.png^(" .. goblins.comp.png.grass_1 ..
             "^[opacity:150)"
@@ -94,10 +96,17 @@ minetest.register_node("goblins:mushroom_goblin", {
         food_mushroom = 1,
         snappy = 3,
         attached_node = 1,
-        flammable = 1
+        flammable = 1,
+        hunger_amount = 2
     },
     sounds = goblins.node_sound_leaves_defaults(),
-    on_use = minetest.item_eat(2),
+    on_use = function(itemstack, user, pointed_thing)
+		local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
+		if hunger_amount == 0 then 
+			return itemstack
+		end
+		minetest.item_eat(hunger_amount)
+	end,
     selection_box = {
         type = "fixed",
         fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16}
@@ -105,7 +114,8 @@ minetest.register_node("goblins:mushroom_goblin", {
 })
 
 minetest.register_node("goblins:mushroom_goblin2", {
-    description = "gobble mushroom",
+    description = "gobble mushroom" .. '\n' ..
+    minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
     tiles = {
         "goblins_mushroom_brown2.png^(" .. goblins.comp.png.grass_1 ..
             "^[opacity:150)"
@@ -127,10 +137,17 @@ minetest.register_node("goblins:mushroom_goblin2", {
         food_mushroom = 2,
         snappy = 3,
         attached_node = 1,
-        flammable = 1
+        flammable = 1,
+        hunger_amount = 2
     },
     sounds = goblins.node_sound_leaves_defaults(),
-    on_use = minetest.item_eat(2),
+    on_use = function(itemstack, user, pointed_thing)
+		local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
+		if hunger_amount == 0 then 
+			return itemstack
+		end
+		minetest.item_eat(hunger_amount)
+	end,
     selection_box = {
         type = "fixed",
         fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16}
@@ -138,7 +155,8 @@ minetest.register_node("goblins:mushroom_goblin2", {
 })
 
 minetest.register_node("goblins:mushroom_goblin3", {
-    description = "gobble mushroom",
+    description = "gobble mushroom" .. '\n' ..
+    minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
     tiles = {
         "goblins_mushroom_brown3.png^(" .. goblins.comp.png.grass_1 ..
             "^[opacity:150)"
@@ -160,17 +178,25 @@ minetest.register_node("goblins:mushroom_goblin3", {
         food_mushroom = 3,
         snappy = 3,
         attached_node = 1,
-        flammable = 1
+        flammable = 1,
+        hunger_amount = 2
     },
     sounds = goblins.node_sound_leaves_defaults(),
-    on_use = minetest.item_eat(2),
+    on_use = function(itemstack, user, pointed_thing)
+		local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
+		if hunger_amount == 0 then 
+			return itemstack
+		end
+		minetest.item_eat(hunger_amount)
+	end,
     selection_box = {
         type = "fixed",
         fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16}
     }
 })
 minetest.register_node("goblins:mushroom_goblin4", {
-    description = "gobble mushroom",
+    description = "gobble mushroom" .. '\n' ..
+    minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
     tiles = {
         "goblins_mushroom_brown4.png^(" .. goblins.comp.png.grass_1 ..
             "^[opacity:150)"
@@ -192,10 +218,17 @@ minetest.register_node("goblins:mushroom_goblin4", {
         food_mushroom = 4,
         snappy = 3,
         attached_node = 1,
-        flammable = 1
+        flammable = 1,
+        hunger_amount = 2
     },
     sounds = goblins.node_sound_leaves_defaults(),
-    on_use = minetest.item_eat(2),
+    on_use = function(itemstack, user, pointed_thing)
+		local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
+		if hunger_amount == 0 then 
+			return itemstack
+		end
+		minetest.item_eat(hunger_amount)
+	end,
     selection_box = {
         type = "fixed",
         fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16}
