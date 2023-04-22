@@ -1,14 +1,14 @@
 local S = minetest.get_translator("goblins")
 minetest.register_node(":" .. goblins.comp.default.mossycobble, {
     description = "Mossy Cobblestone",
-    tiles = {goblins.comp.png.mossycobble},
+    tiles = { goblins.comp.png.mossycobble },
     is_ground_content = false,
-    groups = {cracky = 3, stone = 1, pickaxey=1, building_block=1, material_stone=1},
+    groups = { cracky = 3, stone = 1, pickaxey = 1, building_block = 1, material_stone = 1 },
     sounds = goblins.node_sound_stone_defaults({
-        footstep = {name = "goblins_mossycobble_footstep", gain = 0.4}
+        footstep = { name = "goblins_mossycobble_footstep", gain = 0.4 }
     }),
     _mcl_blast_resistance = 6,
-	_mcl_hardness = 2,
+    _mcl_hardness = 2,
     paramtype = "light",
     light_source = 0
 })
@@ -16,18 +16,16 @@ minetest.register_node(":" .. goblins.comp.default.mossycobble, {
 minetest.register_node("goblins:moss", {
     description = "Moss",
     inventory_image = goblins.comp.png.moss,
-    tiles = {goblins.comp.png.moss .. "^[colorize:#222222:150"},
+    tiles = { goblins.comp.png.moss .. "^[colorize:#222222:150" },
     paramtype = "light",
-
     drawtype = "normal",
     walkable = true,
     buildable_to = true,
     is_ground_content = false,
-    groups = {crumbly = 3, slippery = 2, falling_node = 1},
+    groups = { crumbly = 3, slippery = 2, falling_node = 1 },
     sounds = goblins.node_sound_dirt_defaults({
-        footstep = {name = "goblins_mossycobble_footstep", gain = 0.4}
+        footstep = { name = "goblins_mossycobble_footstep", gain = 0.4 }
     }),
-
     light_source = 4,
     on_construct = function(pos)
         local meta = minetest.get_meta(pos)
@@ -48,23 +46,20 @@ minetest.register_node("goblins:mossx", {
     },
     paramtype2 = "wallmounted",
     paramtype = "light",
-
     drawtype = "nodebox",
     node_box = {
         type = "wallmounted",
-        wall_bottom = {-0.5, -0.5, -0.5, 0.5, -0.45, 0.5}, -- bottom
-        wall_top = {-0.5, 0.45, -0.5, 0.5, 0.5, 0.5}, -- top
-        wall_side = {-0.45, -0.5, -0.5, -0.5, 0.5, 0.5} -- side
-
+        wall_bottom = { -0.5, -0.5, -0.5, 0.5, -0.45, 0.5 }, -- bottom
+        wall_top = { -0.5, 0.45, -0.5, 0.5, 0.5, 0.5 },    -- top
+        wall_side = { -0.45, -0.5, -0.5, -0.5, 0.5, 0.5 }  -- side
     },
     walkable = false,
     buildable_to = true,
     is_ground_content = false,
-    groups = {crumbly = 3, slippery = 2, falling_node = 1, attached_node = 1},
+    groups = { crumbly = 3, slippery = 2, falling_node = 1, attached_node = 1 },
     sounds = goblins.node_sound_dirt_defaults({
-        footstep = {name = "goblins_mossycobble_footstep", gain = 0.4}
+        footstep = { name = "goblins_mossycobble_footstep", gain = 0.4 }
     }),
-
     light_source = 2,
     on_construct = function(pos)
         local meta = minetest.get_meta(pos)
@@ -74,10 +69,10 @@ minetest.register_node("goblins:mossx", {
 
 minetest.register_node("goblins:mushroom_goblin", {
     description = "gobble mushroom" .. '\n' ..
-    minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
+        minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
     tiles = {
         "goblins_mushroom_brown.png^(" .. goblins.comp.png.grass_1 ..
-            "^[opacity:150)"
+        "^[opacity:150)"
     },
     inventory_image = "goblins_mushroom_brown.png",
     wield_image = "goblins_mushroom_brown.png",
@@ -101,24 +96,24 @@ minetest.register_node("goblins:mushroom_goblin", {
     },
     sounds = goblins.node_sound_leaves_defaults(),
     on_use = function(itemstack, user, pointed_thing)
-		local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
-		if hunger_amount == 0 then 
-			return itemstack
-		end
-		minetest.item_eat(hunger_amount)
-	end,
+        local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
+        if hunger_amount == 0 then
+            return itemstack
+        end
+        return minetest.item_eat(hunger_amount)(itemstack, user, pointed_thing)
+    end,
     selection_box = {
         type = "fixed",
-        fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16}
+        fixed = { -3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16 }
     }
 })
 
 minetest.register_node("goblins:mushroom_goblin2", {
     description = "gobble mushroom" .. '\n' ..
-    minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
+        minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
     tiles = {
         "goblins_mushroom_brown2.png^(" .. goblins.comp.png.grass_1 ..
-            "^[opacity:150)"
+        "^[opacity:150)"
     },
     inventory_image = "goblins_mushroom_brown2.png",
     wield_image = "goblins_mushroom_brown.png",
@@ -142,24 +137,24 @@ minetest.register_node("goblins:mushroom_goblin2", {
     },
     sounds = goblins.node_sound_leaves_defaults(),
     on_use = function(itemstack, user, pointed_thing)
-		local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
-		if hunger_amount == 0 then 
-			return itemstack
-		end
-		minetest.item_eat(hunger_amount)
-	end,
+        local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
+        if hunger_amount == 0 then
+            return itemstack
+        end
+        return minetest.item_eat(hunger_amount)(itemstack, user, pointed_thing)
+    end,
     selection_box = {
         type = "fixed",
-        fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16}
+        fixed = { -3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16 }
     }
 })
 
 minetest.register_node("goblins:mushroom_goblin3", {
     description = "gobble mushroom" .. '\n' ..
-    minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
+        minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
     tiles = {
         "goblins_mushroom_brown3.png^(" .. goblins.comp.png.grass_1 ..
-            "^[opacity:150)"
+        "^[opacity:150)"
     },
     inventory_image = "goblins_mushroom_brown3.png",
     wield_image = "goblins_mushroom_brown.png",
@@ -183,23 +178,23 @@ minetest.register_node("goblins:mushroom_goblin3", {
     },
     sounds = goblins.node_sound_leaves_defaults(),
     on_use = function(itemstack, user, pointed_thing)
-		local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
-		if hunger_amount == 0 then 
-			return itemstack
-		end
-		minetest.item_eat(hunger_amount)
-	end,
+        local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
+        if hunger_amount == 0 then
+            return itemstack
+        end
+        return minetest.item_eat(hunger_amount)(itemstack, user, pointed_thing)
+    end,
     selection_box = {
         type = "fixed",
-        fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16}
+        fixed = { -3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16 }
     }
 })
 minetest.register_node("goblins:mushroom_goblin4", {
     description = "gobble mushroom" .. '\n' ..
-    minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
+        minetest.colorize('#DEB887', S('Hunger') .. ': 2'),
     tiles = {
         "goblins_mushroom_brown4.png^(" .. goblins.comp.png.grass_1 ..
-            "^[opacity:150)"
+        "^[opacity:150)"
     },
     inventory_image = "goblins_mushroom_brown4.png",
     wield_image = "goblins_mushroom_brown.png",
@@ -223,15 +218,15 @@ minetest.register_node("goblins:mushroom_goblin4", {
     },
     sounds = goblins.node_sound_leaves_defaults(),
     on_use = function(itemstack, user, pointed_thing)
-		local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
-		if hunger_amount == 0 then 
-			return itemstack
-		end
-		minetest.item_eat(hunger_amount)
-	end,
+        local hunger_amount = minetest.get_item_group(itemstack:get_name(), "hunger_amount") or 0
+        if hunger_amount == 0 then
+            return itemstack
+        end
+        return minetest.item_eat(hunger_amount)(itemstack, user, pointed_thing)
+    end,
     selection_box = {
         type = "fixed",
-        fixed = {-3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16}
+        fixed = { -3 / 16, -0.5, -3 / 16, 3 / 16, -2 / 16, 3 / 16 }
     }
 })
 
@@ -244,26 +239,25 @@ function goblins.moss_spread(pos, node)
     end
     -- print("moss spread abm"..minetest.pos_to_string(pos))
     if math.random() < 0.1 then
-
-        minetest.set_node(pos, {name = "goblins:mushroom_goblin"})
+        minetest.set_node(pos, { name = "goblins:mushroom_goblin" })
     else
         local positions = minetest.find_nodes_in_area_under_air(vector.new(
-                                                                    pos.x - 1,
-                                                                    pos.y - 2,
-                                                                    pos.z - 1),
-                                                                vector.new(
-                                                                    pos.x + 1,
-                                                                    pos.y + 1,
-                                                                    pos.z + 1),
-                                                                {
-            goblins.comp.default.mossycobble, "group:choppy"
-        })
+                pos.x - 1,
+                pos.y - 2,
+                pos.z - 1),
+            vector.new(
+                pos.x + 1,
+                pos.y + 1,
+                pos.z + 1),
+            {
+                goblins.comp.default.mossycobble, "group:choppy"
+            })
 
         if #positions == 0 or pos.y > -10 then return end
         local pos2 = positions[math.random(#positions)]
         pos2.y = pos2.y + 1
         if minetest.get_node_light(pos2, 0.5) <= 5 then
-            minetest.set_node(pos2, {name = node.name})
+            minetest.set_node(pos2, { name = node.name })
         end
     end
 end
@@ -277,26 +271,26 @@ function goblins.mushroom_spread(pos, node)
     end
     -- print("mushroom spread abm"..minetest.pos_to_string(pos))
     local positions = minetest.find_nodes_in_area_under_air(vector.new(
-                                                                pos.x - 1,
-                                                                pos.y - 2,
-                                                                pos.z - 1),
-                                                            vector.new(
-                                                                pos.x + 1,
-                                                                pos.y + 1,
-                                                                pos.z + 1), {
-        goblins.comp.default.mossycobble
-    })
+            pos.x - 1,
+            pos.y - 2,
+            pos.z - 1),
+        vector.new(
+            pos.x + 1,
+            pos.y + 1,
+            pos.z + 1), {
+            goblins.comp.default.mossycobble
+        })
     if #positions == 0 or pos.y > -10 then return end
     local pos2 = positions[math.random(#positions)]
     pos2.y = pos2.y + 1
     if minetest.get_node_light(pos2, 0.5) <= 5 then
-        minetest.set_node(pos2, {name = node.name})
+        minetest.set_node(pos2, { name = node.name })
     end
 end
 
 minetest.register_abm({
     label = "Moss spread",
-    nodenames = {"goblins:moss"},
+    nodenames = { "goblins:moss" },
     interval = 50,
     chance = 50,
     action = function(...) goblins.moss_spread(...) end
@@ -315,7 +309,7 @@ minetest.register_abm({
 
 minetest.register_node("goblins:goblins_goblin_bone", {
     description = "gnawed bone",
-    tiles = {"goblins_goblin_bone.png"},
+    tiles = { "goblins_goblin_bone.png" },
     inventory_image = "goblins_goblin_bone.png",
     visual_scale = 0.7,
     drawtype = "plantlike",
@@ -324,8 +318,8 @@ minetest.register_node("goblins:goblins_goblin_bone", {
     walkable = false,
     is_ground_content = true,
     sunlight_propagates = true,
-    selection_box = {type = "fixed", fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}},
-    groups = {bone = 1, meat = 1, snappy = 2, fleshy = 1, dig_immediate = 3},
+    selection_box = { type = "fixed", fixed = { -0.2, -0.5, -0.2, 0.2, 0, 0.2 } },
+    groups = { bone = 1, meat = 1, snappy = 2, fleshy = 1, dig_immediate = 3 },
     after_place_node = function(pos, placer, itemstack)
         if placer:is_player() then
             minetest.set_node(pos, {
@@ -338,7 +332,7 @@ minetest.register_node("goblins:goblins_goblin_bone", {
 
 minetest.register_node("goblins:goblins_goblin_bone_meaty", {
     description = "meaty bone",
-    tiles = {"goblins_goblin_bone_meaty.png"},
+    tiles = { "goblins_goblin_bone_meaty.png" },
     inventory_image = "goblins_goblin_bone_meaty.png",
     visual_scale = 0.7,
     drawtype = "plantlike",
@@ -347,8 +341,8 @@ minetest.register_node("goblins:goblins_goblin_bone_meaty", {
     walkable = false,
     is_ground_content = true,
     sunlight_propagates = true,
-    selection_box = {type = "fixed", fixed = {-0.2, -0.5, -0.2, 0.2, 0, 0.2}},
-    groups = {meat = 1, snappy = 2, fleshy = 3, dig_immediate = 3},
+    selection_box = { type = "fixed", fixed = { -0.2, -0.5, -0.2, 0.2, 0, 0.2 } },
+    groups = { meat = 1, snappy = 2, fleshy = 3, dig_immediate = 3 },
     after_place_node = function(pos, placer, itemstack)
         if placer:is_player() then
             minetest.set_node(pos, {
@@ -363,13 +357,17 @@ minetest.register_node("goblins:dirt_with_bone", {
     description = "Dirt with something buried",
     tiles = {
         goblins.comp.png.dirt .. "^" .. goblins.comp.png.stones, {
-            name = goblins.comp.png.dirt .. "^goblins_goblin_bone.png",
-            tileable_vertical = false
-        }
+        name = goblins.comp.png.dirt .. "^goblins_goblin_bone.png",
+        tileable_vertical = false
+    }
     },
     groups = {
-        crumbly = 3, soil = 1, handy = 1, shovely = 1, dirt = 2,
-		path_creation_possible=1
+        crumbly = 3,
+        soil = 1,
+        handy = 1,
+        shovely = 1,
+        dirt = 2,
+        path_creation_possible = 1
         -- not_in_creative_inventory = 1
     },
     drop = {
@@ -381,29 +379,33 @@ minetest.register_node("goblins:dirt_with_bone", {
                     "goblins:goblins_goblin_bone 2", goblins.comp.default.stick
                 },
                 rarity = 2 -- has 1 chance over 2 to be picked
-            }, {items = {"goblins:goblins_goblin_bone"}}
+            }, { items = { "goblins:goblins_goblin_bone" } }
         }
     },
     sounds = goblins.node_sound_dirt_defaults({
-        footstep = {name = "default_grass_footstep", gain = 0.25}
+        footstep = { name = "default_grass_footstep", gain = 0.25 }
     }),
     _mcl_blast_resistance = 0.6,
-	_mcl_hardness = 0.6,
+    _mcl_hardness = 0.6,
 })
 
 minetest.register_node("goblins:dirt_with_stuff", {
     description = "Dirt with something shiny buried",
     tiles = {
         goblins.comp.png.dirt .. "^" .. goblins.comp.png.mineral_tin .. "^" ..
-            goblins.comp.png.stones, {
-            name = goblins.comp.png.dirt .. "^" .. goblins.comp.png.mineral_tin ..
-                "^goblins_goblin_bone.png",
-            tileable_vertical = false
-        }
+        goblins.comp.png.stones, {
+        name = goblins.comp.png.dirt .. "^" .. goblins.comp.png.mineral_tin ..
+            "^goblins_goblin_bone.png",
+        tileable_vertical = false
+    }
     },
     groups = {
-        crumbly = 3, soil = 1, handy = 1, shovely = 1, dirt = 2,
-		path_creation_possible=1
+        crumbly = 3,
+        soil = 1,
+        handy = 1,
+        shovely = 1,
+        dirt = 2,
+        path_creation_possible = 1
         -- not_in_creative_inventory = 1
     },
     drop = {
@@ -425,12 +427,11 @@ minetest.register_node("goblins:dirt_with_stuff", {
         }
     },
     sounds = goblins.node_sound_dirt_defaults({
-        footstep = {name = "default_grass_footstep", gain = 0.25}
+        footstep = { name = "default_grass_footstep", gain = 0.25 }
     }),
     _mcl_blast_resistance = 0.6,
-	_mcl_hardness = 0.6,
+    _mcl_hardness = 0.6,
 })
 
 minetest.register_alias("goblins:chest_locked",
-                        goblins.comp.default.chest_locked)
-
+    goblins.comp.default.chest_locked)
