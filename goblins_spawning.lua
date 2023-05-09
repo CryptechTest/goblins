@@ -4,15 +4,15 @@
 -- *** please do not edit this code, it will not overwrite the database ***
 if not goblins.db_fields["digger_spawning"] then
     goblins.db_write("digger_spawning", {
-        nodes = {"group:stone"},
+        nodes = { "group:stone" },
         neighbors = "air",
         min_light = 0,
         max_light = 10,
         interval = 30,
-        chance = 1000,
+        chance = 8000,
         active_object_count = 2,
-        min_height = -31000,
-        max_height = -15,
+        min_height = -10500,
+        max_height = -255,
         day_toggle = nil,
         on_spawn = nil
     })
@@ -20,15 +20,15 @@ end
 
 if not goblins.db_fields["cobble_spawning"] then
     goblins.db_write("cobble_spawning", {
-        nodes = {"group:stone"},
+        nodes = { "group:stone" },
         neighbors = "air",
         min_light = 0,
         max_light = 10,
         interval = 30,
-        chance = 1000,
+        chance = 8000,
         active_object_count = 2,
-        min_height = -31000,
-        max_height = -15,
+        min_height = -10500,
+        max_height = -255,
         day_toggle = nil,
         on_spawn = nil
     })
@@ -36,15 +36,15 @@ end
 
 if not goblins.db_fields["snuffer_spawning"] then
     goblins.db_write("snuffer_spawning", {
-        nodes = {goblins.comp.default.mossycobble},
+        nodes = { goblins.comp.default.mossycobble },
         neighbors = "air",
         min_light = 0,
         max_light = 10,
         interval = 30,
-        chance = 1000,
+        chance = 8000,
         active_object_count = 2,
-        min_height = -31000,
-        max_height = -15,
+        min_height = -10500,
+        max_height = -255,
         day_toggle = nil,
         on_spawn = nil
     })
@@ -52,15 +52,15 @@ end
 
 if not goblins.db_fields["fungiler_spawning"] then
     goblins.db_write("fungiler_spawning", {
-        nodes = {goblins.comp.default.mossycobble},
+        nodes = { goblins.comp.default.mossycobble },
         neighbors = "air",
         min_light = 0,
         max_light = 10,
         interval = 30,
-        chance = 1500,
+        chance = 8000,
         active_object_count = 1,
-        min_height = -31000,
-        max_height = -15,
+        min_height = -10500,
+        max_height = -255,
         day_toggle = nil,
         on_spawn = nil
     })
@@ -68,15 +68,15 @@ end
 
 if not goblins.db_fields["coal_spawning"] then
     goblins.db_write("coal_spawning", {
-        nodes = {goblins.comp.default.stone_with_coal, goblins.comp.default.mossycobble},
+        nodes = { goblins.comp.default.stone_with_coal, goblins.comp.default.mossycobble },
         neighbors = "air",
         min_light = 0,
         max_light = 10,
         interval = 20,
-        chance = 500,
+        chance = 8000,
         active_object_count = 3,
-        min_height = -31000,
-        max_height = -25,
+        min_height = -10500,
+        max_height = -255,
         day_toggle = nil,
         on_spawn = nil
     })
@@ -92,10 +92,10 @@ if not goblins.db_fields["copper_spawning"] then
         min_light = 0,
         max_light = 10,
         interval = 30,
-        chance = 500,
+        chance = 8000,
         active_object_count = 2,
-        min_height = -31000,
-        max_height = -35,
+        min_height = -10500,
+        max_height = -255,
         day_toggle = nil,
         on_spawn = nil
     })
@@ -103,15 +103,15 @@ end
 
 if not goblins.db_fields["iron_spawning"] then
     goblins.db_write("iron_spawning", {
-        nodes = {goblins.comp.default.stone_with_iron, goblins.comp.default.mossycobble},
+        nodes = { goblins.comp.default.stone_with_iron, goblins.comp.default.mossycobble },
         neighbors = "air",
         min_light = 0,
         max_light = 10,
         interval = 20,
-        chance = 500,
+        chance = 8000,
         active_object_count = 3,
-        min_height = -31000,
-        max_height = -35,
+        min_height = -10500,
+        max_height = -255,
         day_toggle = nil,
         on_spawn = nil
     })
@@ -119,15 +119,15 @@ end
 
 if not goblins.db_fields["gold_spawning"] then
     goblins.db_write("gold_spawning", {
-        nodes = {goblins.comp.default.stone_with_gold, goblins.comp.default.mossycobble},
+        nodes = { goblins.comp.default.stone_with_gold, goblins.comp.default.mossycobble },
         neighbors = "air",
         min_light = 0,
         max_light = 10,
         interval = 30,
-        chance = 500,
+        chance = 8000,
         active_object_count = 2,
-        min_height = -31000,
-        max_height = -100,
+        min_height = -10500,
+        max_height = -355,
         day_toggle = nil,
         on_spawn = nil
     })
@@ -135,15 +135,15 @@ end
 
 if not goblins.db_fields["diamond_spawning"] then
     goblins.db_write("diamond_spawning", {
-        nodes = {goblins.comp.default.stone_with_diamond, goblins.comp.default.mossycobble},
+        nodes = { goblins.comp.default.stone_with_diamond, goblins.comp.default.mossycobble },
         neighbors = "air",
         min_light = 0,
         max_light = 10,
         interval = 60,
-        chance = 1000,
+        chance = 10000,
         active_object_count = 2,
-        min_height = -31000,
-        max_height = -200,
+        min_height = -10500,
+        max_height = -555,
         day_toggle = nil,
         on_spawn = nil
     })
@@ -151,12 +151,12 @@ end
 
 if not goblins.db_fields["hoarder_spawning"] then
     goblins.db_write("hoarder_spawning", {
-        nodes = {goblins.comp.default.mossycobble, goblins.comp.default.chest},
+        nodes = { goblins.comp.default.mossycobble, goblins.comp.default.chest },
         neighbors = "air",
         min_light = 0,
         max_light = 10,
         interval = 90,
-        chance = 2000,
+        chance = 10000,
         active_object_count = 1,
         min_height = -31000,
         max_height = -20,
@@ -167,10 +167,10 @@ end
 
 if not goblins.db_fields["gobdog_spawning"] then
     goblins.db_write("gobdog_spawning", {
-        nodes = {goblins.comp.default.mossycobble, "group:sand"},
+        nodes = { goblins.comp.default.mossycobble, "group:sand" },
         min_light = 0,
         max_light = 14,
-        chance = 500,
+        chance = 10000,
         active_object_count = 4,
         min_height = -31000,
         max_height = -20,
@@ -181,10 +181,10 @@ end
 
 if not goblins.db_fields["gobdog_aggro_spawning"] then
     goblins.db_write("gobdog_aggro_spawning", {
-        nodes = {goblins.comp.default.mossycobble, "group:sand"},
+        nodes = { goblins.comp.default.mossycobble, "group:sand" },
         min_light = 0,
         max_light = 6,
-        chance = 500,
+        chance = 8000,
         active_object_count = 1,
         min_height = -31000,
         max_height = -100,
@@ -195,10 +195,10 @@ end
 
 if not goblins.db_fields["template_spawning"] then
     goblins.db_write("template_spawning", {
-        nodes = {goblins.comp.default.mossycobble},
+        nodes = { goblins.comp.default.mossycobble },
         min_light = 0,
         max_light = 10,
-        chance = 500,
+        chance = 8000,
         active_object_count = 4,
         min_height = -31000,
         max_height = -20,
